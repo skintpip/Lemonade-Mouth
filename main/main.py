@@ -1,4 +1,5 @@
 import pymongo
+import re
 
 # use this cluster
 client = pymongo.MongoClient(
@@ -10,11 +11,11 @@ posts = db["HWSet1"]
 # capacity = posts.find({"Guitar Amps": "Capacity"})
 # print(capacity)
 # print(collection)
-def addCluster():
+def addCluster(name, qty):
     # change this to have name, qty parameters and call hardwareSet constructor
-    post = {"Description": "Guitar Amps",
-            "Capacity": "75",
-            "Availability": "75",
+    post = {"Description": name,
+            "Capacity": qty,
+            "Availability": qty,
             }
     post_id = posts.insert_one(post).inserted_id
     print(post)
@@ -54,7 +55,7 @@ def currentHardware(name):
     print(x)
 
 
-# addCluster()
+addCluster("Microphone", "50")
 # currentHardware(input("Which type of hardware would you like to interact with?"))
 currentHardware("Guitar Amps")
 # returns available amount of hardware
