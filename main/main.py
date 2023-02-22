@@ -47,13 +47,14 @@ def currentHardware(name):
     #     print(i)
     # test = posts[name]
     # cap = test["Capacity"]
-    # for i in posts.find({}, {"_id": 0, "Description": 1}):
-    #     print(i)
-    #     if i.equals(name):
-    #         x += 1
-    # print("There are " + x + " hardware(s) available")
+    x = 0
+    for i in posts.find({}, {"_id": 0, "Description": 1}):
+        print(i)
+        x += 1
+    print(x)
 
 
-addCluster()
+# addCluster()
 # currentHardware(input("Which type of hardware would you like to interact with?"))
+currentHardware("Guitar Amps")
 # returns available amount of hardware
