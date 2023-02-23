@@ -1,9 +1,10 @@
 import pymongo
-import re
+import certifi
+ca = certifi.where()
 
 # use this cluster
 client = pymongo.MongoClient(
-    "mongodb+srv://jkressbach:CIrRa3yVV8dhnfKT@cluster0.v1qezrw.mongodb.net/?retryWrites=true&w=majority")
+    "mongodb+srv://jkressbach:CIrRa3yVV8dhnfKT@cluster0.v1qezrw.mongodb.net/?retryWrites=true&w=majority",tlsCAFile=ca)
 db = client["HardwareSet"]
 posts = db["HWSet1"]
 
@@ -55,7 +56,7 @@ def currentHardware(name):
     print(x)
 
 
-addCluster("Microphone", "50")
+#addCluster("Microphone", "50")
 # currentHardware(input("Which type of hardware would you like to interact with?"))
 currentHardware("Guitar Amps")
 # returns available amount of hardware
