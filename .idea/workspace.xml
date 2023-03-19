@@ -7,7 +7,7 @@
     <list default="true" id="8b2e2aed-4516-424a-b0f4-9bab9f412269" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/hardwareSet.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/hardwareSet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/test_hardwareSet.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/test_hardwareSet.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +31,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/jacks/PycharmProjects/Lemonade-Mouth&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/ECE 461L/Lecture_HTML&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
@@ -73,10 +73,15 @@
       <workItem from="1677125330055" duration="165000" />
       <workItem from="1677193252719" duration="303000" />
       <workItem from="1677194081027" duration="333000" />
+      <workItem from="1677613212208" duration="192000" />
+      <workItem from="1677695034063" duration="1996000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Lemonade_Mouth$test_hardwareSet.coverage" NAME="test_hardwareSet Coverage Results" MODIFIED="1677695946931" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main" />
   </component>
 </project>
