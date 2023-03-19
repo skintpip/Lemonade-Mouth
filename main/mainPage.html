@@ -2,43 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-   <link rel='mainPage' href="mainPage.css">
   <title>Lemonade Mouth Hardware Library</title>
+    <link rel="stylesheet" href="mainPage.css">
 </head>
 
 <body>
-  <header>
-    <nav>
-      <ul>
-        <li>Hobbies</li>
-        <li>Interests</li>
-        <li>Career Goals</li>
-      </ul>
-    </nav>
-    <h1>Lemonade Mouth</h1>
-  </header>
-
-  <section>
-     <div1>
-
-     </div1>
-     <div2>
-       <p>
-          Username:
-          <input oninput= "readUserName()" type="text">
-       </p>
-
-       <p>
-          Password:
-          <input oninput="readPassword()" type="text">
-       </p>
-
-       <p>
-         <button onClick="signIn()">Sign In</button>
-       </p>
-     </div2>
-  </section>
-
+    <h2>Lemonade Mouth</h2><br>
+    <div class="login">
+    <form id="login" method="get" action="login.php">
+        <label><b>User Name
+        </b>
+        </label>
+        <input type="text" name="Uname" id="Uname" placeholder="Username">
+        <br><br>
+        <label><b>Password
+        </b>
+        </label>
+        <input type="Password" name="Pass" id="Pass" placeholder="Password">
+        <br><br>
+        <input type="button" name="log" id="log" value="Login">
+        <br><br>
+        <input type="checkbox" id="check">
+        <span>Remember me</span>
+        <br><br>
+    </form>
+</div>
 </body>
-
 </html>
