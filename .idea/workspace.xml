@@ -5,10 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b2e2aed-4516-424a-b0f4-9bab9f412269" name="Changes" comment="Doing test functions">
-      <change afterPath="$PROJECT_DIR$/.idea/Lemonade-Mouth.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main/mainPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/main/mainPage.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main/mainPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/main/mainPage.html" afterDir="false" />
     </list>
@@ -123,7 +119,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main/test_hardwareSet.py</url>
-          <line>41</line>
+          <line>55</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
