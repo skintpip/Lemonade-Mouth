@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b2e2aed-4516-424a-b0f4-9bab9f412269" name="Changes" comment="Doing test functions">
-      <change beforePath="$PROJECT_DIR$/main/hardwareSet.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/hardwareSet.py" afterDir="false" />
-    </list>
+    <list default="true" id="8b2e2aed-4516-424a-b0f4-9bab9f412269" name="Changes" comment="Doing test functions" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -73,7 +71,7 @@
       <workItem from="1677194081027" duration="333000" />
       <workItem from="1677613212208" duration="192000" />
       <workItem from="1677695034063" duration="1996000" />
-      <workItem from="1679265118782" duration="1395000" />
+      <workItem from="1679265118782" duration="1724000" />
     </task>
     <task id="LOCAL-00001" summary="Added a sign in button">
       <created>1679265305999</created>
