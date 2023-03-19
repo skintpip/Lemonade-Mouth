@@ -2,26 +2,30 @@ body
 {
     margin: 0;
     padding: 0;
-    background-color:#6abadeba;
-    font-family: 'Arial';
+    background-color:#fff5c2;
+    font-family: sans-serif;
 }
-.login{
+.login
+{
         width: 382px;
         overflow: hidden;
         margin: auto;
         margin: 20 0 0 450px;
         padding: 80px;
-        background: #23463f;
+        background: #eabc45;
         border-radius: 15px ;
+}
 
-}
-h2{
+h1
+{
     text-align: center;
-    color: #277582;
+    color: black;
     padding: 20px;
+    font-size: 40px;
 }
+
 label{
-    color: #08ffd1;
+    color: black;
     font-size: 17px;
 }
 #Uname{
