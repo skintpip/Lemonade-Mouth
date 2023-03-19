@@ -2,20 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+   <link rel='mainPage' href="mainPage.css">
   <title>Lemonade Mouth Hardware Library</title>
 </head>
+
 <body>
-Check in or check out hardware!
+  <header>
+    <nav>
+      <ul>
+        <li>Hobbies</li>
+        <li>Interests</li>
+        <li>Career Goals</li>
+      </ul>
+    </nav>
+    <h1>Lemonade Mouth</h1>
+  </header>
+
+  <section>
+     <div1>
+
+     </div1>
+     <div2>
+       <p>
+          Username:
+          <input oninput= "readUserName()" type="text">
+       </p>
+
+       <p>
+          Password:
+          <input oninput="readPassword()" type="text">
+       </p>
+
+       <p>
+         <button onClick="signIn()">Sign In</button>
+       </p>
+     </div2>
+  </section>
+
 </body>
-<p>
-  Username:
-  <input oninput= "readUserName()" type="text">
-</p>
-<p>
-  Password:
-  <input oninput="readPassword()" type="text">
-</p>
-<p>
-  <button onClick="signIn()">Sign In</button>
-</p>
+
 </html>
