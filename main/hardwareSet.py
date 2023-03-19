@@ -61,7 +61,8 @@ class hardwareSet:
     # avail: value to initialize the availability of the item with
 
     def getAvailability(self, collection, name):
-        return collection.find({"Name" : name})[0].get("Availability")
+        avail = collection.find({"Description": name})[0].get("Availability")
+        return avail
 
     def getCapacity(self, collection, name):
         return collection.find({"Name" : name})[0].get("Capacity")
