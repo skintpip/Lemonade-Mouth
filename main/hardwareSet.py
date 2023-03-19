@@ -1,5 +1,5 @@
 import pymongo
-
+import main
 
 class hardwareSet:
 
@@ -59,34 +59,32 @@ class hardwareSet:
     # qty: value to check in or check out
     # cap: value to initialize the capacity of the item with
     # avail: value to initialize the availability of the item with
-
     def getAvailability(self, collection, name):
-        avail = collection.find({"Description": name})[0].get("Availability")
-        return avail
+        return collection.find({"Description": name})[0].get("Availability")
 
     def getCapacity(self, collection, name):
-        return collection.find({"Name" : name})[0].get("Capacity")
+        return collection.find({"Description" : name})[0].get("Capacity")
 
     def getCheckedOut(self, collection, name):
-        collection.find({"Name": name})[0].get("CheckedOut")
+        collection.find({"Description": name})[0].get("CheckedOut")
 
     def setAvailability(self, collection, name, val):
-        toUpdate = {"Name": name}
-        newInfo = {"Name": name, "Availability": val}
+        toUpdate = {"Description": name}
+        newInfo = {"Description": name, "Availability": val}
         collection.update_one(toUpdate, newInfo)
 
     def setCapacity(self, collection, name, val):
-        toUpdate = {"Name": name}
-        newInfo = {"Name": name, "Capacity": val}
+        toUpdate = {"Description": name}
+        newInfo = {"Description": name, "Capacity": val}
         collection.update_one(toUpdate, newInfo)
 
     def setCheckedOut(self, collection, name, val):
-        toUpdate = {"Name": name}
-        newInfo = {"Name" : name, "CheckedOut" : val}
+        toUpdate = {"Description": name}
+        newInfo = {"Description" : name, "CheckedOut" : val}
         collection.update_one(toUpdate, newInfo)
 
     def mongo_init_item(self, collection, name, cap, avail):
-        collection.insert_one({"Name": name, "Capacity": cap, "Availability": avail, "CheckedOut" : 0}).inserted_id
+        collection.insert_one({"Description": name, "Capacity": cap, "Availability": avail, "CheckedOut" : 0}).inserted_id
 
     def mongo_check_out_item(self, collection, name, qty):
         # def check_out(self, qty):
