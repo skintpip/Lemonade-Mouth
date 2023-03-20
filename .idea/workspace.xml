@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b2e2aed-4516-424a-b0f4-9bab9f412269" name="Changes" comment="Doing test functions" />
+    <list default="true" id="8b2e2aed-4516-424a-b0f4-9bab9f412269" name="Changes" comment="Doing test functions">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/mainPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/mainPage.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -79,7 +82,7 @@
       <workItem from="1677695034063" duration="1996000" />
       <workItem from="1679265118782" duration="1395000" />
       <workItem from="1679268049574" duration="609000" />
-      <workItem from="1679272407223" duration="918000" />
+      <workItem from="1679272407223" duration="1611000" />
     </task>
     <task id="LOCAL-00001" summary="Added a sign in button">
       <created>1679265305999</created>
@@ -109,7 +112,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679273299037</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Doing test functions">
+      <created>1679273355722</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1679273355722</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
