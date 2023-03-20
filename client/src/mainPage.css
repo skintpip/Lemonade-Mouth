@@ -25,10 +25,22 @@ h1
     font-size: 40px;
 }
 
-label{
+label1{
     color: black;
     font-size: 17px;
     margin-left: 20px;
+    position: fixed;
+    left: 465px;
+    top:180px;
+}
+
+label2{
+    color: black;
+    font-size: 17px;
+    margin-left: 20px;
+    position: fixed;
+    left: 465px;
+    top:260px;
 }
 
 #Uname{
@@ -37,6 +49,9 @@ label{
     border: none;
     border-radius: 20px;
     padding-left: 8px;
+    position: fixed;
+    left:480px;
+    top:200px;
 }
 #Pass{
     width: 300px;
@@ -44,19 +59,19 @@ label{
     border: none;
     border-radius: 20px;
     padding-left: 8px;
-    position: fixed;
-    left:470px;
-    top:300px;
+    position:fixed;
+    left:480px;
+    top:280px;
 }
 #log{
-    width: 300px;
+    width: 150px;
     height: 30px;
     border: none;
     border-radius: 17px;
     padding-left: 7px;
     color: black;
     position:fixed;
-    left:470px;
+    left:550px;
     top:330px;
 }
 
