@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './mainPage.css';
+import React, { useEffect, useState, component}from'react';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<mainPage />);
+class mainPage extends Component{
+
+}
+export default mainPage;
