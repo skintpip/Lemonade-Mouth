@@ -4,13 +4,16 @@ import React, {useEffect, useState, Component} from 'react';
 
 /*
 to do: Should be done by Wednesday 3/22
-> render mainPage.html, render from the file or figure out how to copy the code onto render
+> render mainPage.html, render from the file or figure out how to copy the code onto render Done
 > Login button onClick handler, enter the user into the database or sign in, decrypt and encrypt may be necessary
 
  */
 
 //var perf =require('./mainPage.html');
 class LoginPage extends React.Component {
+    // handleLogin = () => {
+    //     return(<body>HI</body>)
+    // }
     render() {
         return (
             <body>
@@ -34,7 +37,6 @@ class LoginPage extends React.Component {
             </div>
             </body>
         );
-
     }
 }
 

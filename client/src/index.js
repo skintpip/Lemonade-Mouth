@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './mainPage.css';
-import loginPage from './loginPage.js';
+// eslint-disable-next-line no-unused-vars
+import LoginPage from './loginPage';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <loginPage/>
+    <LoginPage/>
   </React.StrictMode>
 );
 
