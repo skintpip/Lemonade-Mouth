@@ -38,16 +38,20 @@ hwSet1 = hardwareSet.hardwareSet("Guitar Amps")
 #         # print number of checkout units
 #         print("Number of total checkedout units", hwSet1.get_checkedout_qty())
 #         print("Could not check out requested number of units")
-#
-# # checkin 180 units
-# hwSet1.check_in(180)
-# # print number of units available after checkin
-# print("Number of units available after checking in 180 units:", hwSet1.get_availability())
-#
-# # set capacity to 50
+
+
+
+# checkin 180 units
+#hwSet1.check_in(180)
+hwSet1.mongo_check_in_item(posts, "Guitar Amps", 20)
+#hwSet1.setAvailability(posts, "Guitar Amps", 12)
+# print number of units available after checkin
+print("Number of units available after checking in 180 units:", hwSet1.get_availability())
+
+# set capacity to 50
 # hwSet1.set_capacity(50)
 # print capacity now
-#print("Capacity of HWSet", hwSet1.get_capacity())
+# print("Capacity of HWSet", hwSet1.get_capacity())
 
 
 

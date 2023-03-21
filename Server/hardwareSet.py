@@ -1,5 +1,7 @@
 import pymongo
-import main
+
+
+# import main
 
 class hardwareSet:
 
@@ -54,7 +56,7 @@ class hardwareSet:
     # New Functions for MongoDB Integration
 
     # collection: name of the collection you want to access
-    # name: name of the item
+    # Description: name of the item
     # val: value to set
     # qty: value to check in or check out
     # cap: value to initialize the capacity of the item with
@@ -63,28 +65,29 @@ class hardwareSet:
         return collection.find({"Description": name})[0].get("Availability")
 
     def getCapacity(self, collection, name):
-        return collection.find({"Description" : name})[0].get("Capacity")
+        return collection.find({"Description": name})[0].get("Capacity")
 
     def getCheckedOut(self, collection, name):
         collection.find({"Description": name})[0].get("CheckedOut")
 
     def setAvailability(self, collection, name, val):
         toUpdate = {"Description": name}
-        newInfo = {"Description": name, "Availability": val}
+        newInfo = {"$set": {"Description": name, "Availability": val}}
         collection.update_one(toUpdate, newInfo)
 
     def setCapacity(self, collection, name, val):
         toUpdate = {"Description": name}
-        newInfo = {"Description": name, "Capacity": val}
+        newInfo = {"$set": {"Description": name, "Capacity": val}}
         collection.update_one(toUpdate, newInfo)
 
     def setCheckedOut(self, collection, name, val):
         toUpdate = {"Description": name}
-        newInfo = {"Description" : name, "CheckedOut" : val}
+        newInfo = {"$set": {"Description": name, "CheckedOut": val}}
         collection.update_one(toUpdate, newInfo)
 
     def mongo_init_item(self, collection, name, cap, avail):
-        collection.insert_one({"Description": name, "Capacity": cap, "Availability": avail, "CheckedOut" : 0}).inserted_id
+        collection.insert_one(
+            {"Description": name, "Capacity": cap, "Availability": avail, "CheckedOut": 0}).inserted_id
 
     def mongo_check_out_item(self, collection, name, qty):
         # def check_out(self, qty):
@@ -101,13 +104,13 @@ class hardwareSet:
         if qty < 0:
             return -1
         toUpdate = {"Description": name}
-        oldAvail = collection.find({"Name" : name})[0].get("Availability")
+        oldAvail = int(collection.find({"Description": name})[0].get("Availability"))
         if oldAvail - qty < 0:
-            newInfo = {"Description": name, "Availability": 0}
+            newInfo = {"$set": {"Description": name, "Availability": 0}}
             collection.update_one(toUpdate, newInfo)
             return 0
         if qty < oldAvail:
-            newInfo = {"Description" : name, "Availability" : oldAvail - qty}
+            newInfo = {"$set": {"Description": name, "Availability": oldAvail - qty}}
             collection.update_one(toUpdate, newInfo)
             return 1
 
@@ -126,14 +129,14 @@ class hardwareSet:
         if qty < 0:
             return -1
         toUpdate = {"Description": name}
-        oldAvail = collection.find({"Description": name})[0].get("Availability")
-        oldCap = collection.find({"Description" : name})[0].get("Capacity")
-        checkedOut = collection.find({"Description" : name})[0].get("CheckedOut")
+        oldAvail = int(collection.find({"Description": name})[0].get("Availability"))
+        oldCap = int(collection.find({"Description": name})[0].get("Capacity"))
+        checkedOut = int(collection.find({"Description": name})[0].get("CheckedOut"))
         if qty + oldAvail > oldCap:
-            newInfo = {"Description" : name, "Availability" : oldCap, "CheckedOut" : checkedOut - qty}
+            newInfo = {"$set": {"Description": name, "Availability": oldCap, "CheckedOut": checkedOut - qty}}
             collection.update_one(toUpdate, newInfo)
             return 1
         else:
-            newInfo = {"Description" : name, "Availability" : oldAvail + qty, "CheckedOut" : checkedOut - qty}
+            newInfo = {"$set": {"Description": name, "Availability": oldAvail + qty, "CheckedOut": checkedOut - qty}}
             collection.update_one(toUpdate, newInfo)
             return 0
