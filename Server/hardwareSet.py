@@ -62,13 +62,13 @@ class hardwareSet:
     # cap: value to initialize the capacity of the item with
     # avail: value to initialize the availability of the item with
     def getAvailability(self, collection, name):
-        return collection.find({"Description": name})[0].get("Availability")
+        return int(collection.find({"Description": name})[0].get("Availability"))
 
     def getCapacity(self, collection, name):
-        return collection.find({"Description": name})[0].get("Capacity")
+        return int(collection.find({"Description": name})[0].get("Capacity"))
 
     def getCheckedOut(self, collection, name):
-        collection.find({"Description": name})[0].get("CheckedOut")
+        return int(collection.find({"Description": name})[0].get("CheckedOut"))
 
     def setAvailability(self, collection, name, val):
         toUpdate = {"Description": name}
@@ -85,9 +85,10 @@ class hardwareSet:
         newInfo = {"$set": {"Description": name, "CheckedOut": val}}
         collection.update_one(toUpdate, newInfo)
 
-    def mongo_init_item(self, collection, name, cap, avail):
+    # can be used by an administrator to create new hardware items (for future build)
+    def mongo_init_item(self, collection, name, cap):
         collection.insert_one(
-            {"Description": name, "Capacity": cap, "Availability": avail, "CheckedOut": 0}).inserted_id
+            {"Description": name, "Capacity": int(cap), "Availability": int(cap), "CheckedOut": 0}).inserted_id
 
     def mongo_check_out_item(self, collection, name, qty):
         # def check_out(self, qty):
@@ -104,13 +105,16 @@ class hardwareSet:
         if qty < 0:
             return -1
         toUpdate = {"Description": name}
-        oldAvail = int(collection.find({"Description": name})[0].get("Availability"))
+        oldAvail = self.getAvailability(collection, name)
+        capacity = self.getCapacity(collection, name)
+        checkedOut = self.getCheckedOut(collection, name)
+
         if oldAvail - qty < 0:
-            newInfo = {"$set": {"Description": name, "Availability": 0}}
+            newInfo = {"$set": {"Description": name, "Availability": 0 , "CheckedOut" : capacity}}
             collection.update_one(toUpdate, newInfo)
             return 0
         if qty < oldAvail:
-            newInfo = {"$set": {"Description": name, "Availability": oldAvail - qty}}
+            newInfo = {"$set": {"Description": name, "Availability": oldAvail - qty, "CheckedOut" : checkedOut + qty}}
             collection.update_one(toUpdate, newInfo)
             return 1
 
@@ -129,11 +133,11 @@ class hardwareSet:
         if qty < 0:
             return -1
         toUpdate = {"Description": name}
-        oldAvail = int(collection.find({"Description": name})[0].get("Availability"))
-        oldCap = int(collection.find({"Description": name})[0].get("Capacity"))
-        checkedOut = int(collection.find({"Description": name})[0].get("CheckedOut"))
-        if qty + oldAvail > oldCap:
-            newInfo = {"$set": {"Description": name, "Availability": oldCap, "CheckedOut": checkedOut - qty}}
+        oldAvail = self.getAvailability(collection, name)
+        capacity = self.getCapacity(collection, name)
+        checkedOut = self.getCheckedOut(collection, name)
+        if qty + oldAvail > capacity:
+            newInfo = {"$set": {"Description": name, "Availability": capacity, "CheckedOut": checkedOut - qty}}
             collection.update_one(toUpdate, newInfo)
             return 1
         else:

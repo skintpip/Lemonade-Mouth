@@ -43,10 +43,10 @@ hwSet1 = hardwareSet.hardwareSet("Guitar Amps")
 
 # checkin 180 units
 #hwSet1.check_in(180)
-hwSet1.mongo_check_in_item(posts, "Guitar Amps", 20)
+#hwSet1.mongo_check_out_item(posts, "Guitar Amps", 20)
 #hwSet1.setAvailability(posts, "Guitar Amps", 12)
 # print number of units available after checkin
-print("Number of units available after checking in 180 units:", hwSet1.get_availability())
+#print("Number of units available after checking in 180 units:", hwSet1.get_availability())
 
 # set capacity to 50
 # hwSet1.set_capacity(50)
@@ -54,6 +54,6 @@ print("Number of units available after checking in 180 units:", hwSet1.get_avail
 # print("Capacity of HWSet", hwSet1.get_capacity())
 
 
-
-print("Availability of Guitar Amps", hwSet1.getCapacity(posts, "Guitar Amps"))
+hwSet1.mongo_init_item(posts, "Test Item", 100)
+print("Availability of Guitar Amps", hwSet1.getAvailability(posts, "Guitar Amps"))
 client.close()
