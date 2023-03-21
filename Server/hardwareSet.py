@@ -100,14 +100,14 @@ class hardwareSet:
         #         return 0
         if qty < 0:
             return -1
-        toUpdate = {"Name": name}
+        toUpdate = {"Description": name}
         oldAvail = collection.find({"Name" : name})[0].get("Availability")
         if oldAvail - qty < 0:
-            newInfo = {"Name": name, "Availability": 0}
+            newInfo = {"Description": name, "Availability": 0}
             collection.update_one(toUpdate, newInfo)
             return 0
         if qty < oldAvail:
-            newInfo = {"Name" : name, "Availability" : oldAvail - qty}
+            newInfo = {"Description" : name, "Availability" : oldAvail - qty}
             collection.update_one(toUpdate, newInfo)
             return 1
 
@@ -125,15 +125,15 @@ class hardwareSet:
         #         return 0
         if qty < 0:
             return -1
-        toUpdate = {"Name": name}
-        oldAvail = collection.find({"Name": name})[0].get("Availability")
-        oldCap = collection.find({"Name" : name})[0].get("Capacity")
-        checkedOut = collection.find({"Name" : name})[0].get("CheckedOut")
+        toUpdate = {"Description": name}
+        oldAvail = collection.find({"Description": name})[0].get("Availability")
+        oldCap = collection.find({"Description" : name})[0].get("Capacity")
+        checkedOut = collection.find({"Description" : name})[0].get("CheckedOut")
         if qty + oldAvail > oldCap:
-            newInfo = {"Name" : name, "Availability" : oldCap, "CheckedOut" : checkedOut - qty}
+            newInfo = {"Description" : name, "Availability" : oldCap, "CheckedOut" : checkedOut - qty}
             collection.update_one(toUpdate, newInfo)
             return 1
         else:
-            newInfo = {"Name" : name, "Availability" : oldAvail + qty, "CheckedOut" : checkedOut - qty}
+            newInfo = {"Description" : name, "Availability" : oldAvail + qty, "CheckedOut" : checkedOut - qty}
             collection.update_one(toUpdate, newInfo)
             return 0
