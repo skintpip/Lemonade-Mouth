@@ -61,6 +61,11 @@ class hardwareSet:
     # qty: value to check in or check out
     # cap: value to initialize the capacity of the item with
     # avail: value to initialize the availability of the item with
+
+    # can be used by an administrator to create new hardware items (for future build)
+    def mongo_init_item(self, collection, name, cap):
+        collection.insert_one({"Description": name, "Capacity": int(cap), "Availability": int(cap), "CheckedOut": 0}).inserted_id
+
     def getAvailability(self, collection, name):
         return int(collection.find({"Description": name})[0].get("Availability"))
 
@@ -85,11 +90,6 @@ class hardwareSet:
         newInfo = {"$set": {"Description": name, "CheckedOut": val}}
         collection.update_one(toUpdate, newInfo)
 
-    # can be used by an administrator to create new hardware items (for future build)
-    def mongo_init_item(self, collection, name, cap):
-        collection.insert_one(
-            {"Description": name, "Capacity": int(cap), "Availability": int(cap), "CheckedOut": 0}).inserted_id
-
     def mongo_check_out_item(self, collection, name, qty):
         # def check_out(self, qty):
         #     if qty < 0:
@@ -110,11 +110,11 @@ class hardwareSet:
         checkedOut = self.getCheckedOut(collection, name)
 
         if oldAvail - qty < 0:
-            newInfo = {"$set": {"Description": name, "Availability": 0 , "CheckedOut" : capacity}}
+            newInfo = {"$set": {"Description": name, "Availability": 0, "CheckedOut": capacity}}
             collection.update_one(toUpdate, newInfo)
             return 0
         if qty < oldAvail:
-            newInfo = {"$set": {"Description": name, "Availability": oldAvail - qty, "CheckedOut" : checkedOut + qty}}
+            newInfo = {"$set": {"Description": name, "Availability": oldAvail - qty, "CheckedOut": checkedOut + qty}}
             collection.update_one(toUpdate, newInfo)
             return 1
 
