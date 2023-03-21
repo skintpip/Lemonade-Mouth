@@ -5,7 +5,7 @@ import pymongo
 import hardwareSet
 ca = certifi.where()
 client = pymongo.MongoClient(
-    "mongodb+srv://jkressbach:CIrRa3yVV8dhnfKT@cluster0.v1qezrw.mongodb.net/?retryWrites=true&w=majority",tlsCAFile=ca)
+    "mongodb+srv://jkressbach:CIrRa3yVV8dhnfKT@cluster0.v1qezrw.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
 db = client["HardwareSet"]
 posts = db["HWSet1"]
 
