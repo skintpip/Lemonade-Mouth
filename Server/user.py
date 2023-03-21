@@ -6,7 +6,7 @@ class User:
     # local, not on mongo (erase later)
     def __init__(self, username, password):
         self.__username = username
-        self.__password = cipher.encrypt(password)
+        self.__password = cipher.encrypt(password, 3, 1)
 
     # -----------------------------------------------------------------------------------------------
     # mongo stuff
@@ -17,13 +17,13 @@ class User:
 
     # returns encrypted password of a given user
     def getEncryptedPassword(self, collection, username):
-        if self.doesUserExist(username):
+        if self.doesUserExist(collection, username):
             return collection.find({"Username": username})[0].get("Password")
 
     # returns decrypted password of a given user
     def getPassword(self, collection, username):
-        if self.doesUserExist(username):
-            return cipher.decrypt(collection.find({"Username": username})[0].get("Password"))
+        if self.doesUserExist(collection, username):
+            return cipher.decrypt(collection.find({"Username": username})[0].get("Password"), 3, 1)
 
     # checks if a user already exists in the database
     def doesUserExist(self, collection, username):
