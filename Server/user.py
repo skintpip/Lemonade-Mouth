@@ -1,6 +1,7 @@
 import pymongo
 import cipher
 
+
 class User:
 
     # local, not on mongo (erase later)
@@ -39,9 +40,3 @@ class User:
         if self.doesUserExist(collection, username):
             return collection.find({"Username": username})[0].get("Password")
         return None
-
-
-
-
-
-
