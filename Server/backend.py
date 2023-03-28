@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-import certifi,pymongo,hardwareSet,cipher,user
+import certifi, pymongo, hardwareSet, cipher, user
 import os
 
 app = Flask(__name__)
@@ -17,7 +17,7 @@ def index():
 # This function queries the projectId and quantity from the URL and returns the project id and quantity to the front
 # end. The front end displays a pop - up message which says “ < qty > hardware checked in”
 @app.route('/checkedIn/<hwSet>/<projectId>/<qty>')
-def checkIn_hardware(hwSet,projectId, qty):
+def checkIn_hardware(hwSet, projectId, qty):
     hwSet1 = hardwareSet.hardwareSet(hwSet)
     ca = certifi.where()
     client = pymongo.MongoClient(
@@ -25,34 +25,34 @@ def checkIn_hardware(hwSet,projectId, qty):
         tlsCAFile=ca)
     db = client["HardwareSet"]
     posts = db[hwSet]
-    hwSet1.mongo_check_in_item(posts,hwSet,qty)
+    hwSet1.mongo_check_in_item(posts, hwSet, qty)
 
 
 # This function queries the projectId and quantity from the URL and returns the
 # project id and quantity to the front end. The front end displays a pop-up message
 # which says “<qty> hardware checked out”
-@app.route('/checkedOut/<projectId>/<qty>')
-def checkOut_hardware(projectId, qty):
+@app.route('/checkedOut/<hwSet/<projectId>/<qty>')
+def checkOut_hardware(hwSet, projectId, qty):
     return {"projectID": [projectId], "checkedOut": [qty]}
 
 
 # This function queries the projectId from the URL and returns the project id to the
 # front end. The front end displays a pop-up message which says “Joined <projectId>”
-@app.route('/join/<projectId>')
-def joinProject(projectId):
+@app.route('/join/<hwSet>/<projectId>')
+def joinProject(projectId, hwSet):
     return {"projectID": [projectId]}
 
 
 # This function queries the projectId from the URL and returns the project id to the
 # front end. The front end displays a pop-up message which says “Left <projectId>”
-@app.route('/leave/<projectId>')
-def leaveProject(projectId):
+@app.route('/leave/<hwSet>/<projectId>')
+def leaveProject(projectId, hwSet):
     return {"projectID": [projectId]}
 
 
 @app.route('/test/<projectId>')
 def testPrint():
-    return {"members": [5555,5656,5657]}
+    return {"members": [5555, 5656, 5657]}
 
 
 # @app.errorhandler('/404')
