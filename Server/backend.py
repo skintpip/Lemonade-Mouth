@@ -49,6 +49,10 @@ def joinProject(projectId, hwSet):
 def leaveProject(projectId, hwSet):
     return {"projectID": [projectId]}
 
+@app.route('/login/<userId>')
+def userLogin(userId):
+    return {"userId":[userId]}
+
 
 @app.route('/test/<projectId>')
 def testPrint():
