@@ -15,13 +15,13 @@ class User:
     # stores login for new user in database (password is encrypted)
     def createNewUser(self, collection, username, password):
         collection.insert_one({"Username": username, "Password": cipher.encrypt(password, 3, 1)}).inserted_id
-        return "New user created! Please proceed to log in with new account information."
+        return username
 
     # attempts to perform a login with provided username and password
     def loginExistingUser(self, collection, username, password):
         if self.getPassword(self, collection, username) == password:
-            return "successfully logged in!"
-        return "Invalid username, please try again or create a new user."
+            return username
+        return None
 
     # checks if a user already exists in the database
     def doesUserExist(self, collection, username):

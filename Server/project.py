@@ -23,13 +23,13 @@ class Project:
     def joinProject(self, collection, ID, user):
         if self.doesProjectExist(self, collection, ID):
             if self.userInProject(self, collection, ID):
-                return "Error: " + user + " already part of project!"
+                return "Error: " + user + " already part of project!" # change to simple already added error notif
             else:
                 userList = self.getUserList(self, collection, ID)
                 userList.append(user)
                 self.setUsers(self, collection, ID, userList)
         else:
-            return "invalid project ID, please try again or create a new project"
+            return "invalid project ID, please try again or create a new project" # change to simple invalid id notif
 
     # checks for valid Project ID
     def doesProjectExist(self, collection, ID):
