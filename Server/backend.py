@@ -3,6 +3,7 @@ import certifi
 import pymongo
 import hardwareSet
 import cipher
+import project
 import user
 import os
 
@@ -68,6 +69,14 @@ def userLogin(username, password):
 @app.route('/test/<projectId>')
 def testPrint():
     return {"members": [5555, 5656, 5657]}
+
+
+@app.route('/projects/<user>')
+def userProjects(user):
+    enrolledProjects = []
+    currentProjects = project.Project()
+    enrolledProjects = currentProjects.getEnrolledProjects(user)
+    return {"projects": [enrolledProjects]}
 
 
 # @app.errorhandler('/404')
