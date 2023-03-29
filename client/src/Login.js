@@ -37,26 +37,6 @@ export class Login extends React.Component {
         this.displayProjects(this.state.user)
     };
 
-
-    // render() {
-    //     return (
-    //         <div className="auth-form-container">
-    //             <h2>Login</h2>
-    //             <form className="currentForm" onSubmit={handleSubmit}>
-    //                 <label htmlFor="email">email</label>
-    //                 <input value={user} onChange={(e) => this.setState(user , pass: this.state.pass)} type="email"
-    //                        placeholder="youremail@gmail.com" id="email" name="email"/>
-    //                 <label htmlFor="password">password</label>
-    //                 <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********"
-    //                        id="password" name="password"/>
-    //                 <button type="submit" onClick={() => loginUser(email, pass)}>Log In</button>
-    //             </form>
-    //             <button className="link-btn" onClick={() => props.onFormSwitch('register')}>Don't have an account?
-    //                 Register here.
-    //             </button>
-    //         </div>
-    //     );
-    // }
     const
     handleChange = (event) => {
         const value = event.target.value;

@@ -1,0 +1,25 @@
+body {
+  font: 14px "Century Gothic", Futura, sans-serif;
+  margin: 20px;
+}
+
+.project-member {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  border: solid black;
+  align-items: center;
+}
+
+ul.no-bullets {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
+}
+
+.qnty-section {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+}
