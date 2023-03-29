@@ -31,7 +31,6 @@ def checkIn_hardware(hwSet, projectId, qty):
     db = client["HardwareSet"]
     posts = db[hwSet]
     hwSet1.mongo_check_in_item(posts, hwSet, qty)
-    0
 
 
 # This function queries the projectId and quantity from the URL and returns the
@@ -39,7 +38,16 @@ def checkIn_hardware(hwSet, projectId, qty):
 # which says “<qty> hardware checked out”
 @app.route('/checkedOut/<hwSet>/<projectId>/<qty>')
 def checkOut_hardware(hwSet, projectId, qty):
-    return {"projectID": [projectId], "checkedOut": [qty]}
+    hwSet1 = hardwareSet.hardwareSet(hwSet)
+    ca = certifi.where()
+    client = pymongo.MongoClient(
+        "mongodb+srv://jkressbach:CIrRa3yVV8dhnfKT@cluster0.v1qezrw.mongodb.net/?retryWrites=true&w=majority",
+        tlsCAFile=ca)
+    db = client["HardwareSet"]
+    posts = db["HWSet1"]
+    hwSet1.mongo_check_out_item(posts, hwSet, int(qty))
+    out = hwSet1.getCheckedOut(posts, hwSet)
+    return {"projectID": projectId, "checkedOut": out}
 
 
 # This function queries the projectId from the URL and returns the project id to the
@@ -59,7 +67,7 @@ def leaveProject(projectId, hwSet):
 @app.route('/login/<username>/<password>')
 def userLogin(username, password):
     currentUser = user.User(username, password)
-    if not currentUser.doesUserAndPassExist(username,password):
+    if not currentUser.doesUserAndPassExist(username, password):
         currentUser.createNewUser(username, password)
         return {"username": [username]}
     else:
