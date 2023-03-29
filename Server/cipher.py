@@ -1,24 +1,24 @@
-def main():
-    # encrypt just a single text or does it take username and password
-    print("Enter a username: ")
-    user = input()
-    print("Enter your password to be encrypted (cannot use spaces or exclamation points): ")
-    inputText = input()
-    while checkInput(inputText) == False:
-        print("Invalid password. Enter a new password, with no spaces or exclamation points: ")
-        inputText = input()
-    print("Input your value for position shifting encryption (must be >= 1): ")
-    N = int(input())
-    while checkN(N) == False:
-        print("Invalid value. Enter a new value, greater than or equal to 1: ")
-        N = int(input())
-    print("Input your value for direction shifting encryption (1 fof forward, -1 for backward): ")
-    D = int(input())
-    while checkD(D) == False:
-        print("Invalid value. Enter a new value, either 1 or -1: ")
-        D = int(input())
-    print("Encrypted password:" + encrypt(inputText, N, D))
-
+# def main():
+#     # encrypt just a single text or does it take username and password
+#     print("Enter a username: ")
+#     user = input()
+#     print("Enter your password to be encrypted (cannot use spaces or exclamation points): ")
+#     inputText = input()
+#     while checkInput(inputText) == False:
+#         print("Invalid password. Enter a new password, with no spaces or exclamation points: ")
+#         inputText = input()
+#     print("Input your value for position shifting encryption (must be >= 1): ")
+#     N = int(input())
+#     while checkN(N) == False:
+#         print("Invalid value. Enter a new value, greater than or equal to 1: ")
+#         N = int(input())
+#     print("Input your value for direction shifting encryption (1 fof forward, -1 for backward): ")
+#     D = int(input())
+#     while checkD(D) == False:
+#         print("Invalid value. Enter a new value, either 1 or -1: ")
+#         D = int(input())
+#     print("Encrypted password:" + encrypt(inputText, N, D))
+#
 
 # helper function - ensures inputString is a valid input
 def checkInput(inputText):
@@ -94,6 +94,6 @@ def fileCheck():
 # 2. aissa, bjha have different passwords in the databse than shown on the document
 # 3. In the doc, "Ally!" is an invalid username, since there is an exclamation point used. In the database, however, it is present as "Ally" which is valid.
 
-main()
+
 
 # fileCheck()
