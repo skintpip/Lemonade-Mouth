@@ -3,12 +3,12 @@ import certifi
 import pymongo
 
 import hardwareSet
+
 ca = certifi.where()
 client = pymongo.MongoClient(
     "mongodb+srv://jkressbach:CIrRa3yVV8dhnfKT@cluster0.v1qezrw.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
 db = client["HardwareSet"]
 posts = db["HWSet1"]
-
 
 # Create object hwSet1 of class hardwareSet with capacity of 250
 hwSet1 = hardwareSet.hardwareSet("Guitar Amps")
@@ -40,13 +40,12 @@ hwSet1 = hardwareSet.hardwareSet("Guitar Amps")
 #         print("Could not check out requested number of units")
 
 
-
 # checkin 180 units
-#hwSet1.check_in(180)
-#hwSet1.mongo_check_out_item(posts, "Guitar Amps", 20)
-#hwSet1.setAvailability(posts, "Guitar Amps", 12)
+# hwSet1.check_in(180)
+# hwSet1.mongo_check_out_item(posts, "Guitar Amps", 20)
+# hwSet1.setAvailability(posts, "Guitar Amps", 12)
 # print number of units available after checkin
-#print("Number of units available after checking in 180 units:", hwSet1.get_availability())
+# print("Number of units available after checking in 180 units:", hwSet1.get_availability())
 
 # set capacity to 50
 # hwSet1.set_capacity(50)
@@ -55,5 +54,7 @@ hwSet1 = hardwareSet.hardwareSet("Guitar Amps")
 
 
 hwSet1.mongo_init_item(posts, "Test Item", 100)
-print("Availability of Guitar Amps", hwSet1.getAvailability(posts, "Guitar Amps"))
+hwSet1.mongo_check_in_item(posts, "GuitarAmps", 75)
+hwSet1.mongo_check_out_item(posts, "GuitarAmps", 5)
+print("Checked out", hwSet1.getCheckedOut(posts, "GuitarAmps"), "Guitar Amps")
 client.close()
