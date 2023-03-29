@@ -27,13 +27,13 @@ class User:
 
     # attempts to perform a login with provided username and password
     def loginExistingUser(self, username, password):
-        if self.getPassword(self, username) == password:
+        if self.getPassword(username) == password:
             return username
         return None
 
     # checks if a user already exists in the database
     def doesUserExist(self, username):
-        if userColl.find({"Username": {"$in": username}}).count() > 0:
+        if userColl.count_documents({"Username": username},limit=1) != 0:
             return True
         return False
 
@@ -48,4 +48,3 @@ class User:
         if self.doesUserExist(username):
             return userColl.find({"Username": username})[0].get("Password")
         return None
-
