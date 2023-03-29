@@ -58,13 +58,13 @@ export class Login extends React.Component {
             <div className="auth-form-container">
                 <h2>Login</h2>
                 <form className="currentForm">
-                    <input type="text" id="user" label="Username" variant="filled" onChange={this.handleChange}
+                    <input type="text" id="user" label="Username" variant="filled" placeholder="username" onChange={this.handleChange}
                     />
-                    <input type="text" id="password" label="password" variant="filled" type="password"
+                    <input type="text" id="password" label="password" variant="filled" type="password" placeholder="password"
                            onChange={this.handleChange2}
                     />
-                    <Button type="contained" onClick={() => this.handleUserPass()}>Log In</Button>
-                    <Button type="contained" onClick={() => this.handleUserPass()}>Don't have an account? Register here.</Button>
+                    <Button variant="contained" color="secondary" onClick={() => this.handleUserPass()}>Log In</Button>
+                    <Button variant="contained" color="secondary" onClick={() => this.handleUserPass()}>Register</Button>
                 </form>
             </div>
         );
