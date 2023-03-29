@@ -21,7 +21,7 @@ export class Login extends React.Component {
         console.log(user, pass);
         const url = '/login/' + user + '/' + pass;
         await fetch(url).then((response) => response.json()).then((userName) => alert("Logged In " + userName.username));
-        await this.displayProjects(user)
+       // await this.displayProjects(user)
     }
     async displayProjects(user) {
         const url = '/projects/' + user
@@ -34,7 +34,7 @@ export class Login extends React.Component {
             user: this.state.user,
             pass: this.state.pass,
         });
-        this.displayProjects(this.state.user)
+        this.sendLogin(this.state.user)
     };
 
     const
@@ -58,13 +58,13 @@ export class Login extends React.Component {
             <div className="auth-form-container">
                 <h2>Login</h2>
                 <form className="currentForm">
-                    <input type="text" id="user" label="Username" variant="filled" onChange={this.handleChange}
+                    <input type="text" id="user" label="Username" variant="filled" placeholder="Username" onChange={this.handleChange}
                     />
-                    <input type="text" id="password" label="password" variant="filled" type="password"
+                    <input type="text" id="password" label="password" variant="filled" placeholder="Password" type="password"
                            onChange={this.handleChange2}
                     />
-                    <Button type="contained" onClick={() => this.handleUserPass()}>Log In</Button>
-                    <Button type="contained" onClick={() => this.handleUserPass()}>Don't have an account? Register here.</Button>
+                    <Button variant="contained" color="secondary" onClick={() => this.handleUserPass()}>Log In</Button>
+                    <Button variant="contained" color="secondary" onClick={() => this.handleUserPass()}>Register</Button>
                 </form>
             </div>
         );
