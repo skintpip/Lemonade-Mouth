@@ -20,18 +20,12 @@ export class Login extends React.Component {
     async sendLogin(user, pass) {
         console.log(user, pass);
         const url = '/login/' + user + '/' + pass;
-        //fetch
-        //if user isn't in database, create user
-        //if it is,
-        await fetch(url).then((response) => response.json()).then(list => {
-            this.displayProjects(list.username).then(console.log(list))
-        })
+        await fetch(url).then((response) => response.json()).then((userName) => alert("Logged In " + userName.username));
+        await this.displayProjects(user)
     }
     async displayProjects(user) {
-        const url = '/projects/' + user;
-        await fetch(url).then((response) => response.json()).then((projectsList) => {
-          return projectsList.projects;
-        })
+        const url = '/projects/' + user
+        await fetch(url).then((response) => response.json()).then((projectsList) => alert("Projects" + projectsList.projects))
     }
 
     handleUserPass = () => {
@@ -40,12 +34,11 @@ export class Login extends React.Component {
             user: this.state.user,
             pass: this.state.pass,
         });
-        this.sendLogin(this.state.user, this.state.pass)
+        this.displayProjects(this.state.user)
     };
 
     const
     handleChange = (event) => {
-            event.preventDefault();
         const value = event.target.value;
         console.log(this.user)
         this.setState({
@@ -53,7 +46,6 @@ export class Login extends React.Component {
         });
     };
     handleChange2 = (event) => {
-            event.preventDefault();
         const value = event.target.value;
         const pass = this.state.pass;
         this.setState({
