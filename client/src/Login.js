@@ -21,6 +21,11 @@ export class Login extends React.Component {
         console.log(user, pass);
         const url = '/login/' + user + '/' + pass;
         await fetch(url).then((response) => response.json()).then((userName) => alert("Logged In " + userName.username));
+        await this.displayProjects(user)
+    }
+    async displayProjects(user) {
+        const url = '/projects/' + user
+        await fetch(url).then((response) => response.json()).then((projectsList) => alert("Projects" + projectsList.projects[0][0]))
     }
 
     handleUserPass = () => {
@@ -29,7 +34,7 @@ export class Login extends React.Component {
             user: this.state.user,
             pass: this.state.pass,
         });
-        this.sendLogin(this.state.user, this.state.pass)
+        this.displayProjects(this.state.user, this.state.pass)
     };
 
 
