@@ -2,8 +2,29 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import {useLoaderData} from "react-router-dom";
 import './Project.css';
 
+export function Project() {
+	const {projects} = useLoaderData();
+
+	function projectBuilder() {
+		let str = "";
+		for (let project in projects) {
+			str += "<ProjectMember name="+project+'"/>';
+		}
+		console.log(str);
+		return str;
+	}
+
+	return(
+	  <div className="project">
+		<div>
+			{projectBuilder()}
+		</div>
+	  </div>
+	);
+}
 
 class QntyHandler extends React.Component {
 	constructor(props) {
@@ -84,19 +105,3 @@ class ProjectMember extends React.Component {
 		);
 	}
 }
-
-export class Project extends React.Component {
-	render() {
-	    return (
-	      <div className="project">
-	        <div>
-	          <ProjectMember name="Project1"/>
-	        </div>
-	      </div>
-	    );
-	  }
-}
-
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<Project />);

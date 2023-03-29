@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import './App.js';
 import './App.css';
 import {waitFor} from "@testing-library/react";
+import {Route, Router, Routes, Link} from "react-router-dom";
 
 
 
@@ -18,30 +19,9 @@ export class Login extends React.Component {
         };
         //this.handleChange = this.updateInput.bind(this);
     }
-
-    async sendLogin(user, pass) {
-        console.log(user, pass);
-        const url = '/login/' + user + '/' + pass;
-        await fetch(url).then((response) => response.json())
-            .then((userName) => this.getProjects(userName.username))
-            .then((list) => console.log(list.projects))
+    buildURL() {
+        return "/projectPage/" + this.state.user + "/" + this.state.pass;
     }
-    async getProjects(user) {
-        const url = '/projects/' + user;
-        await fetch(url).then((response) => response.json()).then((projectsList) => {
-          return projectsList;
-        })
-    }
-
-    handleUserPass = () => {
-        const {user, pass} = this.state;
-        this.setState({
-            user: this.state.user,
-            pass: this.state.pass,
-        });
-        this.sendLogin(this.state.user, this.state.pass)
-    };
-
     const
     handleChange = (event) => {
         const value = event.target.value;
@@ -57,7 +37,6 @@ export class Login extends React.Component {
             pass: (value)
         });
     };
-
     render() {
         return (
             <div className="auth-form-container">
@@ -68,8 +47,8 @@ export class Login extends React.Component {
                     <input type="text" id="password" label="password" variant="filled" type="password" placeholder="password"
                            onChange={this.handleChange2}
                     />
-                    <Button variant="contained" color="secondary" onClick={() => this.handleUserPass()}>Log In</Button>
-                    <Button variant="contained" color="secondary" onClick={() => this.handleUserPass()}>Register here!</Button>
+                    <Button variant="contained" component={Link} to={this.buildURL()} color="secondary" >Log In</Button>
+                    <Button variant="contained" component={Link} to={this.buildURL()} color="secondary" >Register here!</Button>
                 </form>
             </div>
         );

@@ -4,8 +4,8 @@ import './App.css';
 import {Login} from './Login';
 import {Project} from './Project';
 import {
-  createBrowserRouter,
-  RouterProvider,
+    createBrowserRouter, json,
+    RouterProvider,
 } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
 
@@ -15,8 +15,19 @@ const router = createBrowserRouter([
         element: <Login />
     },
     {
-        path:"projectPage/:user",
-        element: <Project />
+        path:"projectPage/:user/:pass",
+        element: <Project/>,
+        loader: async ({params}) => {
+        let url = '/login/' + params.user + '/' + params.pass;
+        let list = fetch(url).then((response) => response.json())
+            .then(async (userName) => {
+                url = '/projects/' + userName.username;
+                return await fetch(url).then((response) => response.json())
+                    .then((projectsList) => projectsList.projects);
+                }).catch(err => console.log(err))
+            console.log("load list:" + list);
+            return list;
+        }
     }
 ])
 const root = ReactDOM.createRoot(document.getElementById('root'));
