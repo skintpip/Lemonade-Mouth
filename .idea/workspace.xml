@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b2e2aed-4516-424a-b0f4-9bab9f412269" name="Changes" comment="fixed project.py syntax and added getEnrolledProjects function">
-      <change afterPath="$PROJECT_DIR$/Server/testProject.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Lemonade-Mouth.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Lemonade-Mouth.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="8b2e2aed-4516-424a-b0f4-9bab9f412269" name="Changes" comment="created basic testProject.py, fixed project.py functions and user.py functions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/cipher.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server/cipher.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/project.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server/project.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/testProject.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server/testProject.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,7 +157,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680072558534</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="created basic testProject.py, fixed project.py functions and user.py functions">
+      <created>1680074704572</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1680074704572</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -182,7 +185,8 @@
     <MESSAGE value="Added a sign in button" />
     <MESSAGE value="Doing test functions" />
     <MESSAGE value="fixed project.py syntax and added getEnrolledProjects function" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed project.py syntax and added getEnrolledProjects function" />
+    <MESSAGE value="created basic testProject.py, fixed project.py functions and user.py functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="created basic testProject.py, fixed project.py functions and user.py functions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -196,11 +200,6 @@
           <url>file://$PROJECT_DIR$/Server/project.py</url>
           <line>28</line>
           <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Server/testProject.py</url>
-          <line>23</line>
-          <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Server/project.py</url>

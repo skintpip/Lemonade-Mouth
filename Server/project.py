@@ -16,7 +16,7 @@ class Project:
 
     # creates project (userList must be passed as a list)
     def createNewProject(self, ID, userList):
-        projectColl.insert_one({"Project ID": ID, "Users": userList}).inserted_id
+        projectColl.insert_one({"Project ID": ID, "Users": userList, "Guitar Amps": 0, "Microphones": 0}).inserted_id
 
     # update list of users added to a project (called in joiProject)
     def setUsers(self, ID, UserList):
