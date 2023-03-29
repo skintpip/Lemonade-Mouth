@@ -49,9 +49,14 @@ def joinProject(projectId, hwSet):
 def leaveProject(projectId, hwSet):
     return {"projectID": [projectId]}
 
-@app.route('/login/<userId>')
-def userLogin(userId):
-    return {"userId":[userId]}
+
+@app.route('/login/<username>/<password>')
+def userLogin(username, password):
+    currentUser = user.User(username, password)
+    if currentUser.loginExistingUser(username, password) is None:
+        currentUser.createNewUser(username, password)
+    else:
+        return {"Username": username}
 
 
 @app.route('/test/<projectId>')
