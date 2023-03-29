@@ -37,6 +37,12 @@ class User:
             return True
         return False
 
+    def doesUserAndPassExist(self, username, password):
+        if userColl.count_documents({"Username": username},limit=1) != 0:
+            if userColl.count_documents({"Password": password},limit=1) != 0:
+                return True
+        return False
+
     # returns decrypted password of a given user
     def getPassword(self, username):
         if self.doesUserExist(username):
