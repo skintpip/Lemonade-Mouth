@@ -38,6 +38,7 @@ class User:
         return False
 
     def doesUserAndPassExist(self, username, password):
+        encPass = cipher.encrypt(password) # TODO
         if userColl.count_documents({"Username": username},limit=1) != 0:
             if userColl.count_documents({"Password": password},limit=1) != 0:
                 return True
