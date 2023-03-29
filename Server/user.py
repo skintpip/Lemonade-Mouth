@@ -46,3 +46,4 @@ class User:
         if self.doesUserExist(username):
             return userColl.find({"Username": username})[0].get("Password")
         return None
+
