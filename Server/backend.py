@@ -23,14 +23,14 @@ def index():
 # end. The front end displays a pop - up message which says “ < qty > hardware checked in”
 @app.route('/checkedIn/<hwSet>/<projectId>/<qty>')
 def checkIn_hardware(hwSet, projectId, qty):
-    # hwSet1 = hardwareSet.hardwareSet(hwSet)
-    # ca = certifi.where()
-    # client = pymongo.MongoClient(
-    #     "mongodb+srv://jkressbach:CIrRa3yVV8dhnfKT@cluster0.v1qezrw.mongodb.net/?retryWrites=true&w=majority",
-    #     tlsCAFile=ca)
-    # db = client["HardwareSet"]
-    # posts = db[hwSet]
-    # hwSet1.mongo_check_in_item(posts, hwSet, qty)
+    hwSet1 = hardwareSet.hardwareSet(hwSet)
+    ca = certifi.where()
+    client = pymongo.MongoClient(
+        "mongodb+srv://jkressbach:CIrRa3yVV8dhnfKT@cluster0.v1qezrw.mongodb.net/?retryWrites=true&w=majority",
+        tlsCAFile=ca)
+    db = client["HardwareSet"]
+    posts = db[hwSet]
+    hwSet1.mongo_check_in_item(posts, hwSet, qty)
     0
 
 
