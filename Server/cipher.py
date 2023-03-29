@@ -94,6 +94,6 @@ def fileCheck():
 # 2. aissa, bjha have different passwords in the databse than shown on the document
 # 3. In the doc, "Ally!" is an invalid username, since there is an exclamation point used. In the database, however, it is present as "Ally" which is valid.
 
-main()
+#main()
 
 # fileCheck()

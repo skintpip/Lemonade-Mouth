@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b2e2aed-4516-424a-b0f4-9bab9f412269" name="Changes" comment="Doing test functions">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_19_2023_7_35_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_19_2023_7_35_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_22_2023_12_36_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_22_2023_12_36_PM__Changes_.xml" afterDir="false" />
+    <list default="true" id="8b2e2aed-4516-424a-b0f4-9bab9f412269" name="Changes" comment="fixed project.py syntax and added getEnrolledProjects function">
+      <change afterPath="$PROJECT_DIR$/Server/testProject.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Lemonade-Mouth.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Lemonade-Mouth.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/cipher.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server/cipher.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/project.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server/project.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server/user.py" afterDir="false" />
     </list>
@@ -152,7 +154,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679274194470</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="fixed project.py syntax and added getEnrolledProjects function">
+      <created>1680072558534</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1680072558534</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -172,7 +181,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added a sign in button" />
     <MESSAGE value="Doing test functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Doing test functions" />
+    <MESSAGE value="fixed project.py syntax and added getEnrolledProjects function" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed project.py syntax and added getEnrolledProjects function" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -181,6 +191,21 @@
           <url>file://$PROJECT_DIR$/main/test_hardwareSet.py</url>
           <line>55</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Server/project.py</url>
+          <line>28</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Server/testProject.py</url>
+          <line>23</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Server/project.py</url>
+          <line>58</line>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -193,6 +218,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Lemonade_Mouth$main.coverage" NAME="main Coverage Results" MODIFIED="1679269833211" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main" />
     <SUITE FILE_PATH="coverage/package_json$test_hardwareSet.coverage" NAME="test_hardwareSet Coverage Results" MODIFIED="1679375997894" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Server" />
+    <SUITE FILE_PATH="coverage/package_json$testProject.coverage" NAME="testProject Coverage Results" MODIFIED="1680074457278" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Server" />
     <SUITE FILE_PATH="coverage/Lemonade_Mouth$test_hardwareSet.coverage" NAME="test_hardwareSet Coverage Results" MODIFIED="1679268860035" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main" />
     <SUITE FILE_PATH="coverage/Lemonade_Mouth$hardwareSet.coverage" NAME="hardwareSet Coverage Results" MODIFIED="1679268361430" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main" />
   </component>

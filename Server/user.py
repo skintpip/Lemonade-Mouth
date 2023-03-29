@@ -1,6 +1,8 @@
 import pymongo
 import cipher
+import certifi
 
+ca = certifi.where()
 
 client = pymongo.MongoClient(
     "mongodb+srv://jkressbach:CIrRa3yVV8dhnfKT@cluster0.v1qezrw.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
@@ -25,7 +27,7 @@ class User:
 
     # attempts to perform a login with provided username and password
     def loginExistingUser(self, username, password):
-        if self.getPassword(self, userColl, username) == password:
+        if self.getPassword(self, username) == password:
             return username
         return None
 

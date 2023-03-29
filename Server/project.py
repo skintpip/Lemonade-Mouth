@@ -1,13 +1,18 @@
 import pymongo
-import hardwareSet
-import user
+import certifi
+
+ca = certifi.where()
 
 client = pymongo.MongoClient(
     "mongodb+srv://jkressbach:CIrRa3yVV8dhnfKT@cluster0.v1qezrw.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
-db = client["Users"]
-projectColl = db["Projects"]
+db = client["Projects"]
+projectColl = db["Project1"]
+
 
 class Project:
+
+    def __init__(self):
+        ID = ""
 
     # creates project (userList must be passed as a list)
     def createNewProject(self, ID, userList):
@@ -21,22 +26,22 @@ class Project:
 
     # checks if a user has been added to a project
     def userInProject(self, ID, user):
-        userList = self.getUserList(self, projectColl, ID)
+        userList = self.getUserList(ID)
         if user in userList:
             return True
         return False
 
     # adds user to project (returning varying errors if needed)
     def joinProject(self, ID, user):
-        if self.doesProjectExist(self, projectColl, ID):
-            if self.userInProject(self, projectColl, ID):
-                return "Error: " + user + " already part of project!" # change to simple already added error notif
+        if self.doesProjectExist(ID):
+            if self.userInProject(ID):
+                return "Error: " + user + " already part of project!"  # change to simple already added error notif
             else:
-                userList = self.getUserList(self, projectColl, ID)
+                userList = self.getUserList(ID)
                 userList.append(user)
-                self.setUsers(self, projectColl, ID, userList)
+                self.setUsers(ID, userList)
         else:
-            return "invalid project ID, please try again or create a new project" # change to simple invalid id notif
+            return "invalid project ID, please try again or create a new project"  # change to simple invalid id notif
 
     # checks for valid Project ID
     def doesProjectExist(self, ID):
@@ -54,6 +59,6 @@ class Project:
         projects = projectColl.find()
         for project in projects:
             projectID = project.get("Project ID")
-            if userInProject(self, projectID, user):
-                enrolledLists.append(projectID)
+            if self.userInProject(projectID, user):
+                enrolledProjectList.append(projectID)
         return enrolledProjectList
