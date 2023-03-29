@@ -4,19 +4,16 @@
     min-height: 100vh;
     align-items: center;
     justify-content: center;
-    color: white;
-    background-image: linear-gradient(79deg, #7439db, #C66FBC 48%, #F7944D);
 }
-
-.auth-form-container {
-    align-content: center;
-}
+/*.auth-form-container {*/
+/*    align-content: center;*/
+/*}*/
 
 .auth-form-container, .login-form, .register-form {
     display: flex;
     flex-direction: column;
     width: 250px;
-    alignment: center;
+    align-items: center;
     padding-right: 250px;
     padding-left: 250px;
 }
@@ -27,11 +24,19 @@
         border: 1px solid white;
         border-radius: 10px;
         margin-left: 35%;
-        background-image: linear-gradient(79deg, #7439db, #C66FBC 48%, #F7944D);
         align-items: center;
     }
 }
 
+.currentForm {
+     display: flex;
+    flex-direction: column;
+    width: 200px;
+    align-items: center;
+    gap: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
 label {
     text-align: left;
     padding: 0.25rem 0;
@@ -52,9 +57,14 @@ button {
     cursor: pointer;
     color: #7439db;
 }
+.h1{
+    color:white;
+}
+
 .h2{
     color: white;
 }
+
 .link-btn {
     background: none;
     color: white;
