@@ -59,7 +59,7 @@ def leaveProject(projectId, hwSet):
 @app.route('/login/<username>/<password>')
 def userLogin(username, password):
     currentUser = user.User(username, password)
-    if currentUser.loginExistingUser(username, password) is None:
+    if not currentUser.doesUserAndPassExist(username,password):
         currentUser.createNewUser(username, password)
         return {"username": [username]}
     else:
@@ -76,7 +76,7 @@ def userProjects(user):
     enrolledProjects = []
     currentProjects = project.Project()
     enrolledProjects = currentProjects.getEnrolledProjects(user)
-    return {"projects": [enrolledProjects]}
+    return {"projects": enrolledProjects}
 
 
 # @app.errorhandler('/404')

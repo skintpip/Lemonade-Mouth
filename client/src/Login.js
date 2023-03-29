@@ -25,7 +25,7 @@ export class Login extends React.Component {
     }
     async displayProjects(user) {
         const url = '/projects/' + user
-        await fetch(url).then((response) => response.json()).then((projectsList) => alert("Projects" + projectsList.projects[0][0]))
+        await fetch(url).then((response) => response.json()).then((projectsList) => alert("Projects" + projectsList.projects))
     }
 
     handleUserPass = () => {
@@ -34,7 +34,7 @@ export class Login extends React.Component {
             user: this.state.user,
             pass: this.state.pass,
         });
-        this.displayProjects(this.state.user, this.state.pass)
+        this.displayProjects(this.state.user)
     };
 
 
