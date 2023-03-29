@@ -1,5 +1,9 @@
 from flask import Flask, jsonify
-import certifi, pymongo, hardwareSet, cipher, user
+import certifi
+import pymongo
+import hardwareSet
+import cipher
+import user
 import os
 
 app = Flask(__name__)
@@ -18,20 +22,21 @@ def index():
 # end. The front end displays a pop - up message which says “ < qty > hardware checked in”
 @app.route('/checkedIn/<hwSet>/<projectId>/<qty>')
 def checkIn_hardware(hwSet, projectId, qty):
-    hwSet1 = hardwareSet.hardwareSet(hwSet)
-    ca = certifi.where()
-    client = pymongo.MongoClient(
-        "mongodb+srv://jkressbach:CIrRa3yVV8dhnfKT@cluster0.v1qezrw.mongodb.net/?retryWrites=true&w=majority",
-        tlsCAFile=ca)
-    db = client["HardwareSet"]
-    posts = db[hwSet]
-    hwSet1.mongo_check_in_item(posts, hwSet, qty)
+    # hwSet1 = hardwareSet.hardwareSet(hwSet)
+    # ca = certifi.where()
+    # client = pymongo.MongoClient(
+    #     "mongodb+srv://jkressbach:CIrRa3yVV8dhnfKT@cluster0.v1qezrw.mongodb.net/?retryWrites=true&w=majority",
+    #     tlsCAFile=ca)
+    # db = client["HardwareSet"]
+    # posts = db[hwSet]
+    # hwSet1.mongo_check_in_item(posts, hwSet, qty)
+    0
 
 
 # This function queries the projectId and quantity from the URL and returns the
 # project id and quantity to the front end. The front end displays a pop-up message
 # which says “<qty> hardware checked out”
-@app.route('/checkedOut/<hwSet/<projectId>/<qty>')
+@app.route('/checkedOut/<hwSet>/<projectId>/<qty>')
 def checkOut_hardware(hwSet, projectId, qty):
     return {"projectID": [projectId], "checkedOut": [qty]}
 
@@ -55,8 +60,9 @@ def userLogin(username, password):
     currentUser = user.User(username, password)
     if currentUser.loginExistingUser(username, password) is None:
         currentUser.createNewUser(username, password)
+        return {"username": [username]}
     else:
-        return {"Username": username}
+        return {"username": [username]}
 
 
 @app.route('/test/<projectId>')
