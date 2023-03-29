@@ -56,7 +56,7 @@ export class Login extends React.Component {
     render() {
         return (
             <div className="auth-form-container">
-                <h2>Login{this.state.user}{this.state.pass}</h2>
+                <h2>Login</h2>
                 <form className="currentForm">
                     <input type="text" id="user" label="Username" variant="filled" onChange={this.handleChange}
                     />
@@ -64,6 +64,7 @@ export class Login extends React.Component {
                            onChange={this.handleChange2}
                     />
                     <Button type="contained" onClick={() => this.handleUserPass()}>Log In</Button>
+                    <Button type="contained" onClick={() => this.handleUserPass()}>Don't have an account? Register here.</Button>
                 </form>
             </div>
         );
