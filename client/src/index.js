@@ -18,15 +18,17 @@ const router = createBrowserRouter([
         path:"projectPage/:user/:pass",
         element: <Project/>,
         loader: async ({params}) => {
-        let url = '/login/' + params.user + '/' + params.pass;
-        let list = fetch(url).then((response) => response.json())
-            .then(async (userName) => {
-                url = '/projects/' + userName.username;
-                return await fetch(url).then((response) => response.json())
-                    .then((projectsList) => projectsList.projects);
-                }).catch(err => console.log(err))
-            console.log("load list:" + list);
-            return list;
+            let url = '/login/' + params.user + '/' + params.pass;
+            const list = fetch(url).then((response) => response.json())
+                .then(async (userName) => {
+                    url = '/projects/' + userName.username;
+                    return await fetch(url)
+                        .then((response) => response.json())
+                        .then((projectsList) => projectsList.projects)
+                }).catch((err) => console.error(err));
+            return list.then((result) => {
+                return result;
+            })
         }
     }
 ])
