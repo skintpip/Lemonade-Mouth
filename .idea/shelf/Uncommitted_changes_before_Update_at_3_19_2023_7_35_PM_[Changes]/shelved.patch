@@ -1,6 +1,0 @@
-diff --git a/Client/mainPage.html b/client/src/mainPage.html
-rename from Client/mainPage.html
-rename to client/src/mainPage.html
-diff --git a/Client/mainPage.css b/client/src/mainPage.css
-rename from Client/mainPage.css
-rename to client/src/mainPage.css
