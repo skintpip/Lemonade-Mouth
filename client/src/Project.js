@@ -1,8 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import parse from 'html-react-parser';
 import {useLoaderData} from "react-router-dom";
 import './Project.css';
 
@@ -13,7 +11,7 @@ export function Project() {
 			<React.Fragment key ={index}>
 				<ProjectMember name={component}/>
 			</React.Fragment>
-				);
+		);
 	}
 
 	return(
