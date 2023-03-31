@@ -49,6 +49,21 @@ def checkOut_hardware(hwSet, projectId, qty):
     out = hwSet1.getCheckedOut(posts, hwSet)
     return {"projectID": projectId, "checkedOut": out}
 
+# This function queries the projectId from the URL and returns the
+# availability of that project to the front end. The front end displays a pop-up message
+# which says “<availability> hardware available”
+@app.route('/available/<hwSet>/<projectId>')
+def get_availability(hwSet, projectId):
+    hwSet1 = hardwareSet.hardwareSet(hwSet)
+    ca = certifi.where()
+    client = pymongo.MongoClient(
+        "mongodb+srv://jkressbach:CIrRa3yVV8dhnfKT@cluster0.v1qezrw.mongodb.net/?retryWrites=true&w=majority",
+        tlsCAFile=ca)
+    db = client["HardwareSet"]
+    posts = db["HWSet1"]
+    availability = hwSet1.getAvailability(posts, hwSet)
+    return {"available": availability}
+
 
 # This function queries the projectId from the URL and returns the project id to the
 # front end. The front end displays a pop-up message which says “Joined <projectId>”
