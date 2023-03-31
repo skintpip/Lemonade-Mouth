@@ -1,11 +1,11 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import {useLoaderData} from "react-router-dom";
+import {useActionData, useLoaderData, useLocation} from "react-router-dom";
 import './Project.css';
 
 export function Project() {
-	let projects = useLoaderData();
+	let projects = useActionData();
 	const RenderMembers = () => {
 		return projects.map((component, index) =>
 			<React.Fragment key ={index}>

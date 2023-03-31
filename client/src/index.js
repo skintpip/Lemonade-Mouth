@@ -15,10 +15,11 @@ const router = createBrowserRouter([
         element: <Login />
     },
     {
-        path:"projectPage/:user/:pass",
+        path:"projectPage/",
         element: <Project/>,
-        loader: async ({params}) => {
-            let url = '/login/' + params.user + '/' + params.pass;
+        action: async ({request}) => {
+            const params = await request.formData();
+            let url = '/login/' + params.get("username") + '/' + params.get("password");
             const list = fetch(url).then((response) => response.json())
                 .then(async (userName) => {
                     url = '/projects/' + userName.username;

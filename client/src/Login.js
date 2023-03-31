@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import './App.js';
 import './App.css';
 import {waitFor} from "@testing-library/react";
-import {Route, Router, Routes, Link} from "react-router-dom";
+import {Route, Router, Routes, Link, Form} from "react-router-dom";
 
 
 
@@ -20,7 +20,7 @@ export class Login extends React.Component {
         //this.handleChange = this.updateInput.bind(this);
     }
     buildURL() {
-        return "/projectPage/" + this.state.user + "/" + this.state.pass;
+        return "/projectPage/" + this.state.user;
     }
     const
     handleChange = (event) => {
@@ -41,15 +41,14 @@ export class Login extends React.Component {
         return (
             <div className="auth-form-container">
                 <h2>Login</h2>
-                <form className="currentForm">
-                    <input type="text" id="user" label="Username" variant="filled" placeholder="username" onChange={this.handleChange}
+                <Form method="post" action="projectPage/" className="currentForm">
+                    <input type="text" name="username" variant="filled" placeholder="username" onChange={this.handleChange}
                     />
-                    <input type="text" id="password" label="password" variant="filled" type="password" placeholder="password"
-                           onChange={this.handleChange2}
+                    <input type="text" name="password" variant="filled" type="password" placeholder="password" onChange={this.handleChange2}
                     />
-                    <Button variant="contained" component={Link} to={this.buildURL()} color="secondary" >Log In</Button>
-                    <Button variant="contained" component={Link} to={this.buildURL()} color="secondary" >Register here!</Button>
-                </form>
+                    <Button variant="contained" color="secondary" type="submit">Log In</Button>
+                    <Button variant="contained" color="secondary" type="submit">Register here!</Button>
+                </Form>
             </div>
         );
     }
