@@ -1,8 +1,9 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import {useActionData, useLoaderData, useLocation} from "react-router-dom";
+import {useActionData} from "react-router-dom";
 import './Project.css';
+import Title from "./Title";
 
 export function Project() {
 	let projects = useActionData();
@@ -16,6 +17,7 @@ export function Project() {
 
 	return(
 	  <div className="project">
+		  <Title> Lemonade Mouth </Title>
 		  <div>{RenderMembers()}</div>
 	  </div>
 	);
@@ -36,7 +38,7 @@ class QntyHandler extends React.Component {
 			<div className="qnty-section">
 				<div>{this.state.name}: {this.state.qnty}</div>
 				<TextField inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} id="outlined-basic" label={this.state.qntyMsg} variant="outlined" size="small" inputRef={ref => {this.inputRef = ref}}/>
-				<div><Button variant="contained" onClick={() => {
+				<div><Button variant="contained" color="secondary" onClick={() => {
 					let newQnty = this.state.qnty + Number(this.inputRef.value);
 					this.setState({
 						name: this.state.name,
@@ -45,7 +47,7 @@ class QntyHandler extends React.Component {
 					});
 				}}>
 				add Items</Button></div>
-				<div><Button variant="contained"onClick={() => {
+				<div><Button variant="contained" color="secondary" onClick={() => {
 					let newQnty = this.state.qnty - Number(this.inputRef.value);
 					if (newQnty < 0) {
 						this.setState({
@@ -83,7 +85,6 @@ class ProjectMember extends React.Component {
 				console.log(project)
 			}
 		});
-		//return "Projects"
 
 	}
 	userSection() {

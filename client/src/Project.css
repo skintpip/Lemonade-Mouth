@@ -20,6 +20,7 @@ ul.no-bullets {
 .qnty-section {
   display: flex;
   flex-direction: row;
-  gap: 5px;
+  gap: 50px;
+  height: 100px;
   align-items: center;
 }
