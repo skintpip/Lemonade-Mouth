@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './App.css';
 import {Login} from './Login';
 import {Project} from './Project';
+import {Register} from './Register';
 import {
     createBrowserRouter, json,
     RouterProvider,
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
         element: <Project/>,
         action: async ({request}) => {
             const params = await request.formData();
+            console.log(request.method);
             let url = '/login/' + params.get("username") + '/' + params.get("password");
             const list = fetch(url).then((response) => response.json())
                 .then(async (userName) => {
@@ -26,10 +28,22 @@ const router = createBrowserRouter([
                     return await fetch(url)
                         .then((response) => response.json())
                         .then((projectsList) => projectsList.projects)
-                }).catch((err) => console.error(err));
+                }).catch((err) => {return null});
             return list.then((result) => {
-                return result;
+                const map = new Map();
+                map.set('user', params.get('username'));
+                map.set('password', params.get('password'));
+                map.set('projects', result);
+                return map;
             })
+        }
+    },
+    {
+        path:"register/",
+        element: <Register />,
+        action: async({request}) => {
+            const params = await request.formData();
+            return params;
         }
     }
 ])

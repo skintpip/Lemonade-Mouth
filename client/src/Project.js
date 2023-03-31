@@ -1,11 +1,26 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import {useActionData, useLoaderData, useLocation} from "react-router-dom";
 import './Project.css';
 
 export function Project() {
-	let projects = useActionData();
+	let data = useActionData();
+	let projects;
+	let username;
+	let password;
+
+	if (data === undefined) {
+	data = JSON.parse(localStorage.getItem('data'));
+	console.log(data);
+	data = new Map(Object.entries(data));
+	} else {
+		localStorage.setItem('data', JSON.stringify(data));
+	}
+	projects = data.get('projects');
+	username = data.get('user');
+	password = data.get('password');
+
 	const RenderMembers = () => {
 		return projects.map((component, index) =>
 			<React.Fragment key ={index}>
