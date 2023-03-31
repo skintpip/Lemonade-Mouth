@@ -71,8 +71,20 @@ class ProjectMember extends React.Component {
 		super(props);
 		this.state = {
 			name: props.name,
-			users: ["Spencer", "John", "Scarlet"]
+			users: ["joeM58", "Spencer", "Scarlet"],
+			projects: []
 		};
+	}
+	//TODO: return the project the user is into this.state.name
+	async displayUserProjects(){
+		const url = '/projects/' + this.state.users[0]
+		await fetch(url).then((response)=> response.json()).then((list)=>{
+			for(var project in list.projects){
+				console.log(project)
+			}
+		});
+		//return "Projects"
+
 	}
 	userSection() {
 		let text = "";
@@ -92,8 +104,8 @@ class ProjectMember extends React.Component {
 				<div>{this.userSection()}</div>
 				<div>
 					<ul className="no-bullets">
-						<li><QntyHandler name="HWSet1" qnty={Number("50")}/></li>
-					  <li><QntyHandler name="HWSet2" qnty={Number("50")}/></li>
+						<li><QntyHandler name="Guitar Amps" qnty={Number("50")}/></li>
+					  <li><QntyHandler name="Microphones" qnty={Number("50")}/></li>
 					</ul>
 				</div>
 			</div>
