@@ -95,18 +95,8 @@ class ProjectMember extends React.Component {
             projects: [],
             index: 0
         };
-        this.displayUserProjects();
     }
 
-    async displayUserProjects() {
-        const url = '/projects/' + this.state.users[0]
-        await fetch(url).then((response) => response.json()).then((list) => {
-            // console.log(list.projects.at(this.index));
-            // console.log(list.projects);
-            console.log(this.index);
-            this.setState({name: list.projects.at(this.index), index: Number(this.index) + 1})
-        })
-    }
 
     userSection() {
         let text = "";
@@ -123,7 +113,18 @@ class ProjectMember extends React.Component {
     render() {
         return (
             <div className="project-member">
-                <div>{this.state.name}</div>
+                <div>{async () => {
+                    const url = '/projects/' + this.state.users[0]
+                    await fetch(url).then((response) => response.json()).then((list) => {
+                        console.log(this.state.index);
+                        list.projects.map((project, i) => {
+                            this.setState({
+                                name: String(list.projects.at(i))
+                            })
+                        })
+                        this.setState({index: Number(this.state.index + 1)});
+                    })
+                }}{this.state.name}</div>
                 <div>{this.userSection()}</div>
                 <div>
                     <ul className="no-bullets">
