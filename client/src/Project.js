@@ -98,7 +98,6 @@ class ProjectMember extends React.Component {
         this.displayUserProjects();
     }
 
-    //TODO: return the project the user is into this.state.name
     async displayUserProjects() {
         const url = '/projects/' + this.state.users[0]
         await fetch(url).then((response) => response.json()).then((list) => {
