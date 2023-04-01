@@ -53,8 +53,9 @@ hwSet1 = hardwareSet.hardwareSet("Guitar Amps")
 # print("Capacity of HWSet", hwSet1.get_capacity())
 
 
-hwSet1.mongo_init_item(posts, "Test Item", 100)
-hwSet1.mongo_check_in_item(posts, "GuitarAmps", 75)
-hwSet1.mongo_check_out_item(posts, "GuitarAmps", 5)
-print("Checked out", hwSet1.getCheckedOut(posts, "GuitarAmps"), "Guitar Amps")
+#hwSet1.mongo_init_item(posts, "Test Item", 100)
+#hwSet1.mongo_check_in_item(posts, "Test Item", 75)
+hwSet1.mongo_check_out_item(posts, "Test Item", 6)
+print("Checked out", hwSet1.getCheckedOut(posts, "Test Item"), "Test Items")
+
 client.close()

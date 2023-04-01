@@ -109,7 +109,7 @@ class hardwareSet:
         capacity = self.getCapacity(collection, name)
         checkedOut = self.getCheckedOut(collection, name)
 
-        if oldAvail - qty < 0:
+        if oldAvail - qty <= 0:
             newInfo = {"$set": {"Description": name, "Availability": 0, "CheckedOut": capacity}}
             collection.update_one(toUpdate, newInfo)
             return 0
@@ -136,8 +136,8 @@ class hardwareSet:
         oldAvail = self.getAvailability(collection, name)
         capacity = self.getCapacity(collection, name)
         checkedOut = self.getCheckedOut(collection, name)
-        if qty + oldAvail > capacity:
-            newInfo = {"$set": {"Description": name, "Availability": capacity, "CheckedOut": checkedOut - qty}}
+        if qty + oldAvail >= capacity:
+            newInfo = {"$set": {"Description": name, "Availability": capacity, "CheckedOut": 0}}
             collection.update_one(toUpdate, newInfo)
             return 1
         else:
