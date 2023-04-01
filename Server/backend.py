@@ -49,6 +49,7 @@ def checkOut_hardware(hwSet, projectId, qty):
     out = hwSet1.getCheckedOut(posts, hwSet)
     return {"projectID": projectId, "checkedOut": out}
 
+
 # This function queries the projectId from the URL and returns the
 # availability of that project to the front end. The front end displays a pop-up message
 # which says “<availability> hardware available”
@@ -82,16 +83,13 @@ def leaveProject(projectId, hwSet):
 @app.route('/login/<username>/<password>')
 def userLogin(username, password):
     currentUser = user.User(username, password)
-    if not currentUser.doesUserAndPassExist(username, password):
+    if currentUser.doesUserExist(username) == -1:
         currentUser.createNewUser(username, password)
-        return {"username": [username]}
-    else:
-        return {"username": [username]}
-
-
-@app.route('/test/<projectId>')
-def testPrint():
-    return {"members": [5555, 5656, 5657]}
+        return {"username": "does not exist"}
+    elif currentUser.loginExistingUser(username, password) == 1:
+        return {"username": username}
+    elif currentUser.loginExistingUser(username, password) == 0:
+        return {"username": "incorrect password"}
 
 
 @app.route('/projects/<user>')
@@ -100,6 +98,18 @@ def userProjects(user):
     currentProjects = project.Project()
     enrolledProjects = currentProjects.getEnrolledProjects(user)
     return {"projects": enrolledProjects}
+
+
+@app.route('/projects/checkedOut/<projectID>')
+def getCheckedOut(projectID):
+    projects = project.Project()
+    checkedOut = projects.getCheckedOutUnits(projectID)
+    return {"out": checkedOut}
+
+
+@app.route('/test/<projectId>')
+def testPrint():
+    return {"members": [5555, 5656, 5657]}
 
 
 # @app.errorhandler('/404')

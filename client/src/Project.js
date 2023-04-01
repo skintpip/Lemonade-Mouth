@@ -93,7 +93,8 @@ class ProjectMember extends React.Component {
             name: props.name,
             users: ["joeM58", "Spencer", "Scarlet"],
             projects: [],
-            index: 0
+            index: 0,
+            checkedOut:0
         };
     }
 
@@ -128,7 +129,20 @@ class ProjectMember extends React.Component {
                 <div>{this.userSection()}</div>
                 <div>
                     <ul className="no-bullets">
-                        <li><QntyHandler name="Guitar Amps" qnty={Number("50")}/></li>
+                        {async () => {
+                        const url = '/projects/checkedOut/Project1'
+                            await fetch(url).then((response) => response.json()).then((qty) =>{
+                                qty.out.map((quantity,i) =>{
+                                    console.log(qty.checkedOut.at(i))
+                                    this.setState({
+                                        checkedOut: Number(qty.out.at(0))
+                                    })
+                                })
+                            })
+                        }
+                        }
+                        <li><QntyHandler name="Guitar Amps" qnty={this.state.checkedOut}
+                        /></li>
                         <li><QntyHandler name="Microphones" qnty={Number("50")}/></li>
                     </ul>
                 </div>
