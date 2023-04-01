@@ -11,7 +11,8 @@ def main():
     db = client["Users"]
     projectColl = db["Projects"]
 
-    testGetEnrolledProjects()
+    #testGetEnrolledProjects()
+    testGetCheckedOutUnits()
 
     client.close()
 
@@ -27,6 +28,14 @@ def testGetEnrolledProjects():
     testProject = project.Project()
 
     print(testProject.getEnrolledProjects(user))
+
+
+def testGetCheckedOutUnits():
+    ID = "Project 1"
+
+    testProject = project.Project()
+
+    print(testProject.getCheckedOutUnits(ID))
 
 
 main()

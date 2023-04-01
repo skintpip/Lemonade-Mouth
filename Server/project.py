@@ -62,3 +62,10 @@ class Project:
             if self.userInProject(projectID, user):
                 enrolledProjectList.append(projectID)
         return enrolledProjectList
+
+    # returns a list of the number of guitar amps (index 0) and microphones (index 1) checkout out to a given project
+    def getCheckedOutUnits(self, ID):
+        list = []
+        list.append(projectColl.find({"Project ID": ID})[0].get("Guitar Amps"))
+        list.append(projectColl.find({"Project ID": ID})[0].get("Microphones"))
+        return list
