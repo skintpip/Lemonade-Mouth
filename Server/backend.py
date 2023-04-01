@@ -56,7 +56,7 @@ def checkOut_hardware(hwSet, projectId, qty):
 # availability of that project to the front end. The front end displays a pop-up message
 # which says “<availability> hardware available”
 @app.route('/available/<hwSet>')
-def get_availability(hwSet, projectId):
+def get_availability(hwSet):
     hwSet1 = hardwareSet.hardwareSet(hwSet)
     ca = certifi.where()
     client = pymongo.MongoClient(
@@ -82,6 +82,10 @@ def leaveProject(projectId, hwSet):
     return {"projectID": [projectId]}
 
 
+# used for login, login function returns -1 if the user does not exist (front end should create a popup and tell the
+# user to register) login function returns 1 if the user and password combo exists, gives the user name to front end
+# allowing user to move onto projects page login function returns 0 if the user exists but the password is wrong (
+# front end should prompt user to retype password)
 @app.route('/login/<username>/<password>')
 def userLogin(username, password):
     currentUser = user.User(username, password)
@@ -94,6 +98,7 @@ def userLogin(username, password):
         return {"username": "incorrect password"}
 
 
+# returns the enrolled projects that the user is in
 @app.route('/projects/<user>')
 def userProjects(user):
     enrolledProjects = []
@@ -102,6 +107,7 @@ def userProjects(user):
     return {"projects": enrolledProjects}
 
 
+# returns the number of items that are checked out for each HWSet for a specific project
 @app.route('/projects/checkedOut/<projectID>')
 def getCheckedOut(projectID):
     projects = project.Project()

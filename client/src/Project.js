@@ -10,6 +10,11 @@ export function Project() {
     let projects;
     let username;
     let password;
+    let availability;
+    let checkedOutP1Amps;
+    let checkedOutP1Mics;
+    let checkedOutP2Amps;
+    let checkedOutP2Mics;
 
     if (data === undefined) {
         data = JSON.parse(localStorage.getItem('data'));
@@ -19,13 +24,24 @@ export function Project() {
         localStorage.setItem('data', JSON.stringify(data));
     }
     projects = data.get('projects');
+    console.log(projects);
     username = data.get('user');
     password = data.get('password');
+    availability = data.get('availability');
+    console.log(availability);
+
+    checkedOutP1Amps = data.get('p1CheckedOut');
+    console.log(checkedOutP1Amps);
+    // checkedOutP1Mics = Number(data.get('p1CheckedOut')[1]);
+    // checkedOutP2Amps = Number(data.get('p2CheckedOut')[0]);
+    // checkedOutP2Mics = Number(data.get('p2CheckedOut')[1]);
 
     const RenderMembers = () => {
         return projects.map((component, index) =>
             <React.Fragment key={index}>
-                <ProjectMember name={component}/>
+                <ProjectMember name={component}
+                checkedOutP1Amps = {checkedOutP1Amps}
+                checkedOutP1Mics = {checkedOutP1Mics}/>
             </React.Fragment>
         );
     }
@@ -94,7 +110,8 @@ class ProjectMember extends React.Component {
             users: ["joeM58", "Spencer", "Scarlet"],
             projects: [],
             index: 0,
-            checkedOut: 0
+            checkedOutP1Amps: props.checkedOutP1Amps,
+            checkedOutP1Mics: props.checkedOutP1Amps
         };
     }
 
@@ -147,7 +164,7 @@ class ProjectMember extends React.Component {
                     {/*}*/}
                     {/*}*/}
                     <ul className="no-bullets">
-                        <li><QntyHandler name="Guitar Amps" qnty={this.state.checkedOut}
+                        <li><QntyHandler name="Guitar Amps" qnty={"50"}
                         /></li>
                         <li><QntyHandler name="Microphones" qnty={Number("50")}/></li>
                     </ul>

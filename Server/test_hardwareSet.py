@@ -54,8 +54,8 @@ hwSet1 = hardwareSet.hardwareSet("Guitar Amps")
 
 
 #hwSet1.mongo_init_item(posts, "Test Item", 100)
-#hwSet1.mongo_check_in_item(posts, "Test Item", 75)
-hwSet1.mongo_check_out_item(posts, "Test Item", 6)
-print("Checked out", hwSet1.getCheckedOut(posts, "Test Item"), "Test Items")
+hwSet1.mongo_check_in_item(posts, "GuitarAmps", 75)
+#hwSet1.mongo_check_out_item(posts, "Test Item", 6)
+print("Checked out", hwSet1.getCheckedOut(posts, "GuitarAmps"), "Test Items")
 
 client.close()
