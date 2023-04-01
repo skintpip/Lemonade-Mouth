@@ -52,7 +52,7 @@ def checkOut_hardware(hwSet, projectId, qty):
 # This function queries the projectId from the URL and returns the
 # availability of that project to the front end. The front end displays a pop-up message
 # which says “<availability> hardware available”
-@app.route('/available/<hwSet>/<projectId>')
+@app.route('/available/<hwSet>')
 def get_availability(hwSet, projectId):
     hwSet1 = hardwareSet.hardwareSet(hwSet)
     ca = certifi.where()
