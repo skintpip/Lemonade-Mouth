@@ -10,12 +10,10 @@ def main():
         "mongodb+srv://jkressbach:CIrRa3yVV8dhnfKT@cluster0.v1qezrw.mongodb.net/?retryWrites=true&w=majority",
         tlsCAFile=ca)
 
-    db = client["Users"]
-    userColl = db["Logins2"]
 
     #testCreateUser()
-    testLoginExistingUser()
-    #testDoesUserExist()
+    #testLoginExistingUser()
+    testDoesUserExist()
 
     client.close()
 
@@ -23,7 +21,7 @@ def main():
 def testCreateUser():
     testUser = user.User()
 
-    testUser.createNewUser("Jonny2", "abc123")
+    testUser.createNewUser("yellow", "test")
 
 def testLoginExistingUser():
     testUser = user.User()
@@ -32,8 +30,8 @@ def testLoginExistingUser():
 
 def testDoesUserExist():
     testUser = user.User()
-    print(testUser.doesUserExist("Jonny2"))
-    print(testUser.doesUserExist("not Jonny2"))
+    print(testUser.doesUserExist("yellow"))
+    print(testUser.doesUserExist("yello"))
 
 
 
