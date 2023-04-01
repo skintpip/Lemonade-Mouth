@@ -7,23 +7,23 @@ ca = certifi.where()
 client = pymongo.MongoClient(
     "mongodb+srv://jkressbach:CIrRa3yVV8dhnfKT@cluster0.v1qezrw.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
 db = client["Users"]
-userColl = db["LoginsTest"]
+userColl = db["Logins"]
 
 
 class User:
 
     # local, not on mongo (erase later)
     def __init__(self, username, password):
-        self.__username = cipher.encrypt(username, 3, 1)
-        self.__password = cipher.encrypt(password, 3, 1)
+        self.__username = username
+        self.__password = password
 
     # -----------------------------------------------------------------------------------------------
     # mongo stuff
 
     # default constructor, for testing purposes
-    def __init__(self):
-        username = ""
-        password = ""
+    # def __init__(self):
+    #     username = ""
+    #     password = ""
 
     # stores login for new user in database (password is encrypted)
     def createNewUser(self, username, password):
@@ -43,7 +43,7 @@ class User:
 
     # checks if a user already exists in the database
     def doesUserExist(self, username):
-        if userColl.count_documents({"Username": cipher.encrypt(username, 3, 1)}, limit=1) != 0:
+        if userColl.count_documents({"Username": cipher.encrypt(username, 3, 1)}, limit=1):
             return True
         return False
 

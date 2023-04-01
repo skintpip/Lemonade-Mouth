@@ -31,6 +31,7 @@ def checkIn_hardware(hwSet, projectId, qty):
     db = client["HardwareSet"]
     posts = db[hwSet]
     hwSet1.mongo_check_in_item(posts, hwSet, qty)
+    client.close()
 
 
 # This function queries the projectId and quantity from the URL and returns the
@@ -47,6 +48,7 @@ def checkOut_hardware(hwSet, projectId, qty):
     posts = db["HWSet1"]
     hwSet1.mongo_check_out_item(posts, hwSet, int(qty))
     out = hwSet1.getCheckedOut(posts, hwSet)
+    client.close()
     return {"projectID": projectId, "checkedOut": out}
 
 
@@ -83,7 +85,7 @@ def leaveProject(projectId, hwSet):
 @app.route('/login/<username>/<password>')
 def userLogin(username, password):
     currentUser = user.User(username, password)
-    if currentUser.doesUserExist(username) == -1:
+    if currentUser.loginExistingUser(username, password) == -1:
         currentUser.createNewUser(username, password)
         return {"username": "does not exist"}
     elif currentUser.loginExistingUser(username, password) == 1:

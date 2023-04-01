@@ -94,7 +94,7 @@ class ProjectMember extends React.Component {
             users: ["joeM58", "Spencer", "Scarlet"],
             projects: [],
             index: 0,
-            checkedOut:0
+            checkedOut: 0
         };
     }
 
@@ -111,36 +111,42 @@ class ProjectMember extends React.Component {
         return text;
     }
 
+    // displayUserProjects = async () =>{
+    //     const url = '/projects/' + this.state.users[0]
+    //     fetch(url).then((response) => response.json()).then((list) => {
+    //         console.log(this.state.index);
+    //         // list.projects.map((project, i) => {
+    //         //     this.setState({
+    //         //         name: String(list.projects.at(i))
+    //         //     })
+    //         // })
+    //         this.setState({name: list.projects, index: Number(this.state.index + 1)});
+    //         //return (this.state.name);
+    //     })
+    // }
+
     render() {
+        //this.displayUserProjects()
         return (
             <div className="project-member">
-                <div>{async () => {
-                    const url = '/projects/' + this.state.users[0]
-                    await fetch(url).then((response) => response.json()).then((list) => {
-                        console.log(this.state.index);
-                        list.projects.map((project, i) => {
-                            this.setState({
-                                name: String(list.projects.at(i))
-                            })
-                        })
-                        this.setState({index: Number(this.state.index + 1)});
-                    })
-                }}{this.state.name}</div>
+                <div>
+                    {this.state.name}</div>
                 <div>{this.userSection()}</div>
                 <div>
+                    {/*{async () => {*/}
+                    {/*    const url = '/projects/checkedOut/Project1'*/}
+                    {/*    await fetch(url).then((response) => response.json()).then((qty) => {*/}
+                    {/*        qty.out.map((quantity, i) => {*/}
+                    {/*            console.log(qty.checkedOut.at(0))*/}
+                    {/*            this.setState({*/}
+                    {/*                checkedOut: Number(qty.out.at(0)),*/}
+                    {/*            })*/}
+                    {/*            console.log(this.state.checkedOut)*/}
+                    {/*        })*/}
+                    {/*    })*/}
+                    {/*}*/}
+                    {/*}*/}
                     <ul className="no-bullets">
-                        {async () => {
-                        const url = '/projects/checkedOut/Project1'
-                            await fetch(url).then((response) => response.json()).then((qty) =>{
-                                qty.out.map((quantity,i) =>{
-                                    console.log(qty.checkedOut.at(i))
-                                    this.setState({
-                                        checkedOut: Number(qty.out.at(0))
-                                    })
-                                })
-                            })
-                        }
-                        }
                         <li><QntyHandler name="Guitar Amps" qnty={this.state.checkedOut}
                         /></li>
                         <li><QntyHandler name="Microphones" qnty={Number("50")}/></li>
