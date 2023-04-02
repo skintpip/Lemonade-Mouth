@@ -91,6 +91,7 @@ def leaveProject(projectId, hwSet):
 def userLogin(username, password):
     currentUser = user.User(username, password)
     if currentUser.loginExistingUser(username, password) == -1:
+        # TODO: discuss this
         currentUser.createNewUser(username, password)
         return {"username": "does not exist"}
     elif currentUser.loginExistingUser(username, password) == 1:
@@ -114,6 +115,17 @@ def getCheckedOut(projectID):
     projects = project.Project()
     checkedOut = projects.getCheckedOutUnits(projectID)
     return {"out": checkedOut}
+
+
+# Registers a new user, given they do not already exist in the set of current users
+@app.route('/register/<username>/<password>')
+def registerUser(username, password):
+    newUser = user.User(username, password)
+    if not newUser.doesUserExist(username):
+        newUser.createNewuser(username, password)
+        return {"username": "new user registered"}
+    else:
+        return {"username": "user already exists"}
 
 
 @app.route('/test/<projectId>')

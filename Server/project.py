@@ -69,3 +69,21 @@ class Project:
         list.append(projectColl.find({"Project ID": ID})[0].get("Guitar Amps"))
         list.append(projectColl.find({"Project ID": ID})[0].get("Microphones"))
         return list
+
+    # Updates the project for the number of the item wanted to be checked out in the database
+    # Works for both Guitar Amps and Microphones
+    def checkOutProject(self, ID, amps, mics):
+        toUpdate = {"Project ID": ID}
+        prevOutList = self.getCheckedOutUnits(ID)
+        newInfo = {"$set": {"Project ID": ID, "GuitarAmps": prevOutList[0] - amps, "Microphones": prevOutList[1] - mics}}
+        projectColl.update_one(toUpdate, newInfo)
+        return [amps - prevOutList[0], mics - prevOutList[1]]
+
+    # Updates the project for the number of the item wanted to be checked into the database
+    # Works for both Guitar Amps and Microphones
+    def checkInProject(self, ID, amps, mics):
+        toUpdate = {"Project ID": ID}
+        prevOutList = self.getCheckedOutUnits(ID)
+        newInfo = {"$set": {"Project ID": ID, "GuitarAmps": prevOutList[0] + amps, "Microphones": prevOutList[1] + mics}}
+        projectColl.update_one(toUpdate, newInfo)
+        return [amps + prevOutList[0], mics + prevOutList[1]]
