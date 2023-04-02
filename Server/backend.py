@@ -30,9 +30,25 @@ def checkIn_hardware(hwSet, projectId, qty):
         tlsCAFile=ca)
     db = client["HardwareSet"]
     posts = db[hwSet]
-    hwSet1.mongo_check_in_item(posts, hwSet, qty)
+    currentProjects = project.Project()
+    truth = hwSet1.mongo_check_in_item(posts, hwSet, qty)
+    cap = hwSet1.getCapacity(posts, hwSet)
+    oldAvail = truth[1]
+    if truth[0] == -1:
+        return {"error": "negative value"}
+    elif truth[0] == 0:
+        if hwSet == "GuitarAmps":
+            currentProjects.checkInProject(projectId, cap - oldAvail, 0)
+        elif hwSet == "Microphones":
+            currentProjects.checkInProject(projectId, 0, cap - oldAvail)
+    elif truth[0] == 1:
+        if hwSet == "GuitarAmps":
+            currentProjects.checkInProject(projectId, qty, 0)
+        elif hwSet == "Microphones":
+            currentProjects.checkInProject(projectId, 0, qty)
     client.close()
-    return {"projectID": projectId, "checkedIn": qty}
+    checked = currentProjects.getCheckedOutUnits(projectId)
+    return {"projectID": projectId, "checkedIn": checked}
 
 
 # This function queries the projectId and quantity from the URL and returns the
@@ -41,14 +57,28 @@ def checkIn_hardware(hwSet, projectId, qty):
 @app.route('/checkedOut/<hwSet>/<projectId>/<qty>')
 def checkOut_hardware(hwSet, projectId, qty):
     hwSet1 = hardwareSet.hardwareSet(hwSet)
+    currentProjects = project.Project()
     ca = certifi.where()
     client = pymongo.MongoClient(
         "mongodb+srv://jkressbach:CIrRa3yVV8dhnfKT@cluster0.v1qezrw.mongodb.net/?retryWrites=true&w=majority",
         tlsCAFile=ca)
     db = client["HardwareSet"]
     posts = db["HWSet1"]
-    hwSet1.mongo_check_out_item(posts, hwSet, int(qty))
-    out = hwSet1.getCheckedOut(posts, hwSet)
+    truth = hwSet1.mongo_check_out_item(posts, hwSet, int(qty))
+    oldAvail = truth[1]
+    if truth[0] == -1:
+        return {"error": "negative value"}
+    elif truth[0] == 0:
+        if hwSet == "GuitarAmps":
+            currentProjects.checkOutProject(projectId, oldAvail, 0)
+        elif hwSet == "Microphones":
+            currentProjects.checkOutProject(projectId, 0, oldAvail)
+    elif truth[0] == 1:
+        if hwSet == "GuitarAmps":
+            currentProjects.checkOutProject(projectId, qty, 0)
+        elif hwSet == "Microphones":
+            currentProjects.checkOutProject(projectId, 0, qty)
+    out = currentProjects.getCheckedOutUnits(projectId)
     client.close()
     return {"projectID": projectId, "checkedOut": out}
 
@@ -91,8 +121,6 @@ def leaveProject(projectId, hwSet):
 def userLogin(username, password):
     currentUser = user.User(username, password)
     if currentUser.loginExistingUser(username, password) == -1:
-        # TODO: discuss this
-        currentUser.createNewUser(username, password)
         return {"username": "does not exist"}
     elif currentUser.loginExistingUser(username, password) == 1:
         return {"username": username}
