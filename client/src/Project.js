@@ -10,38 +10,15 @@ export function Project() {
     let projects;
     let username;
     let password;
-    let availability;
-    let checkedOutP1Amps;
-    let checkedOutP1Mics;
-    let checkedOutP2Amps;
-    let checkedOutP2Mics;
 
-    if (data === undefined) {
-        data = JSON.parse(localStorage.getItem('data'));
-        console.log(data);
-        data = new Map(Object.entries(data));
-    } else {
-        localStorage.setItem('data', JSON.stringify(data));
-    }
     projects = data.get('projects');
-    console.log(projects);
     username = data.get('user');
     password = data.get('password');
-    availability = data.get('availability');
-    console.log(availability);
-
-    checkedOutP1Amps = data.get('p1CheckedOut');
-    console.log(checkedOutP1Amps);
-    // checkedOutP1Mics = Number(data.get('p1CheckedOut')[1]);
-    // checkedOutP2Amps = Number(data.get('p2CheckedOut')[0]);
-    // checkedOutP2Mics = Number(data.get('p2CheckedOut')[1]);
 
     const RenderMembers = () => {
         return projects.map((component, index) =>
             <React.Fragment key={index}>
-                <ProjectMember name={component}
-                checkedOutP1Amps = {checkedOutP1Amps}
-                checkedOutP1Mics = {checkedOutP1Mics}/>
+                <ProjectMember name={component}/>
             </React.Fragment>
         );
     }
@@ -54,122 +31,53 @@ export function Project() {
     );
 }
 
-class QntyHandler extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: props.name,
-            qnty: props.qnty,
-            qntyMsg: "Enter qnty"
-        };
-    }
+//TODO: HANDLE NOT NUMBER INPUTS
+function QntyHandler(props) {
+    const [projName, setProjName] = useState(props.projName);
+    const [name, setName] = useState(props.name);
+    const [qnty, setQnty] = useState(props.qnty);
+    const [msg, setMsg] = useState("Enter qnty");
+    const [inputRef, setInputRef] = useState();
 
-    render() {
         return (
             <div className="qnty-section">
-                <div>{this.state.name}: {this.state.qnty}</div>
+                <div>{name}: {qnty}</div>
                 <TextField inputProps={{inputMode: 'numeric', pattern: '[0-9]*'}} id="outlined-basic"
-                           label={this.state.qntyMsg} variant="outlined" size="small" inputRef={ref => {
-                    this.inputRef = ref
+                           label={msg} variant="outlined" size="small" inputRef={ref => {
+                    setInputRef(ref);
                 }}/>
                 <div><Button variant="contained" color="secondary" onClick={() => {
-                    let newQnty = this.state.qnty + Number(this.inputRef.value);
-                    this.setState({
-                        name: this.state.name,
-                        qnty: newQnty,
-                        qntyMsg: "Enter qnty"
-                    });
+                    setQnty(Number(qnty) + Number(inputRef.value));
                 }}>
                     add Items</Button></div>
                 <div><Button variant="contained" color="secondary" onClick={() => {
-                    let newQnty = this.state.qnty - Number(this.inputRef.value);
+                    let newQnty = Number(qnty) - Number(inputRef.value);
                     if (newQnty < 0) {
-                        this.setState({
-                            name: this.state.name,
-                            qnty: this.state.qnty,
-                            qntyMsg: "Please enter a qnty < current"
-                        });
+                        setMsg("Please enter a qnty < current");
                     } else {
-                        this.setState({
-                            name: this.state.name,
-                            qnty: newQnty,
-                            qntyMsg: "Enter qnty"
-                        });
+                        setQnty(newQnty);
                     }
                 }}>
                     remove Items</Button></div>
             </div>);
-    }
 }
 
-class ProjectMember extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: props.name,
-            users: ["joeM58", "Spencer", "Scarlet"],
-            projects: [],
-            index: 0,
-            checkedOutP1Amps: props.checkedOutP1Amps,
-            checkedOutP1Mics: props.checkedOutP1Amps
-        };
-    }
+function ProjectMember(props) {
+    const [name, setName] = useState(props.name);
+    const [amps, setAmps] = useState("");
+    const [mics, setMics] = useState("");
 
-
-    userSection() {
-        let text = "";
-        let users = this.state.users;
-        for (let i = 0; i < this.state.users.length; i++) {
-            text += this.state.users[i];
-            if (i !== this.state.users.length - 1) {
-                text += ", ";
-            }
-        }
-        return text;
-    }
-
-    // displayUserProjects = async () =>{
-    //     const url = '/projects/' + this.state.users[0]
-    //     fetch(url).then((response) => response.json()).then((list) => {
-    //         console.log(this.state.index);
-    //         // list.projects.map((project, i) => {
-    //         //     this.setState({
-    //         //         name: String(list.projects.at(i))
-    //         //     })
-    //         // })
-    //         this.setState({name: list.projects, index: Number(this.state.index + 1)});
-    //         //return (this.state.name);
-    //     })
-    // }
-
-    render() {
-        //this.displayUserProjects()
         return (
             <div className="project-member">
                 <div>
-                    {this.state.name}</div>
-                <div>{this.userSection()}</div>
+                    {name}</div>
                 <div>
-                    {/*{async () => {*/}
-                    {/*    const url = '/projects/checkedOut/Project1'*/}
-                    {/*    await fetch(url).then((response) => response.json()).then((qty) => {*/}
-                    {/*        qty.out.map((quantity, i) => {*/}
-                    {/*            console.log(qty.checkedOut.at(0))*/}
-                    {/*            this.setState({*/}
-                    {/*                checkedOut: Number(qty.out.at(0)),*/}
-                    {/*            })*/}
-                    {/*            console.log(this.state.checkedOut)*/}
-                    {/*        })*/}
-                    {/*    })*/}
-                    {/*}*/}
-                    {/*}*/}
                     <ul className="no-bullets">
-                        <li><QntyHandler name="Guitar Amps" qnty={"50"}
+                        <li><QntyHandler name="Guitar Amps" qnty={amps}
                         /></li>
-                        <li><QntyHandler name="Microphones" qnty={Number("50")}/></li>
+                        <li><QntyHandler name="Microphones" qnty={mics}/></li>
                     </ul>
                 </div>
             </div>
         );
-    }
 }
