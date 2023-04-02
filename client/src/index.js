@@ -57,9 +57,6 @@ const router = createBrowserRouter([
                 map.set('user', params.get('username'));
                 map.set('password', params.get('password'));
                 map.set('projects', result);
-                map.set('availability', availability);
-                map.set('p1CheckedOut', checkedOutP1);
-                map.set('p2CheckedOut', checkedOutP2);
                 return map;
             })
         }
