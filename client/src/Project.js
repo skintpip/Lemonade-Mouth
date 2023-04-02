@@ -24,16 +24,38 @@ export function Project() {
     }
 
     const NewProject = () => {
+        const styles = {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '15vh',
+        };
+
         return (
-            <div className="newProjects">
-                <div><Button variant="contained" color="secondary" > New Project </Button></div>
+            <div style = {styles}>
+                <div><Button variant="contained" color="secondary"> New Project </Button></div>
+            </div>
+        )
+    }
+
+    const Title = () => {
+        const styles = {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '15vh',
+        }
+
+        return (
+            <div style = {styles}>
+                 <Title> Lemonade Mouth </Title>
             </div>
         )
     }
 
     return (
         <div className="project">
-            <Title> Lemonade Mouth </Title>
+            <Title> {Title()} </Title>
             <div>{RenderMembers()}</div>
             <div>{NewProject()}</div>
         </div>
