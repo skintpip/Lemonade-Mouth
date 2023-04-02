@@ -15,8 +15,8 @@ class Project:
         ID = ""
 
     # creates project (userList must be passed as a list)
-    def createNewProject(self, ID, userList):
-        projectColl.insert_one({"Project ID": ID, "Users": userList, "Guitar Amps": 0, "Microphones": 0}).inserted_id
+    def createNewProject(self, ID):
+        projectColl.insert_one({"Project ID": ID, "Users": [], "Guitar Amps": 0, "Microphones": 0}).inserted_id
 
     # update list of users added to a project (called in joiProject)
     def setUsers(self, ID, UserList):
@@ -42,6 +42,18 @@ class Project:
                 self.setUsers(ID, userList)
         else:
             return "invalid project ID, please try again or create a new project"  # change to simple invalid id notif
+
+    # removes user from a project
+    def leavePorject(self, ID, user):
+        if self.doesProjectExist(ID):
+            if self.userInProject(ID):
+                userList = self.getUserList()
+                userList.remove(user)
+                self.setUsers(ID, userList)
+            else:
+                return "Error: user already not enrolled in project"
+        else:
+            return "Error: project does not exist"
 
     # checks for valid Project ID
     def doesProjectExist(self, ID):
@@ -91,7 +103,8 @@ class Project:
         elif prevOutList[1] - mics < 0:
             newInfo = {"$set": {"Project ID": ID, "GuitarAmps": prevOutList[0] - amps, "Microphones": 0}}
         else:
-            newInfo = {"$set": {"Project ID": ID, "GuitarAmps": prevOutList[0] - amps, "Microphones": prevOutList[1] - mics}}
+            newInfo = {
+                "$set": {"Project ID": ID, "GuitarAmps": prevOutList[0] - amps, "Microphones": prevOutList[1] - mics}}
         projectColl.update_one(toUpdate, newInfo)
         newOutList = self.getCheckedOutUnits(ID)
         return [int(newOutList[0]), int(newOutList[1])]
