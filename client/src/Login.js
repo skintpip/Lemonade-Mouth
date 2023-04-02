@@ -1,11 +1,8 @@
-import React, {createRef, Component, useState, useEffect, useRef} from 'react';
-
-import TextField from '@mui/material/TextField';
+import React, {useState} from 'react';
 import Button from '@mui/material/Button';
 import './App.js';
 import './App.css';
-import {waitFor} from "@testing-library/react";
-import {Route, Router, Routes, Link, Form, useSubmit} from "react-router-dom";
+import {Link, Form, useSubmit, useActionData, useLoaderData} from "react-router-dom";
 
 
 
@@ -24,16 +21,6 @@ export function Login(props) {
         setPassword(value);
     };
 
-    function RegisterUser() {
-        const formData = new FormData();
-        formData.append(name, password)
-        submit(formData, {
-            action: "register/",
-            method: "post"
-        })
-        return null;
-    }
-
     return (
             <div className="auth-form-container">
                 <h2>Login</h2>
@@ -42,8 +29,9 @@ export function Login(props) {
                     <input name="password" variant="filled" type="password" placeholder="password" onChange={handleChange2}/>
                     <Button variant="contained" color="secondary" type="submit">Log In</Button>
                 </Form>
-                <Button variant="contained" color="secondary" type="submit" onClick={() => {RegisterUser()}}>Register here!</Button>
-
+                <h1>
+                    <Button variant="contained" color="secondary" component={Link} to="/register/">Register here!</Button>
+                </h1>
             </div>
         );
 }

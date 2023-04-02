@@ -15,6 +15,7 @@ export function Project() {
     username = data.get('user');
     password = data.get('password');
 
+
     const RenderMembers = () => {
         return projects.map((component, index) =>
             <React.Fragment key={index}>
@@ -77,15 +78,13 @@ function HWSetHandler(props) {
         let response;
         try {
             if (state === 0) {
-                response = getAvailability(name);
+                response = getCheckedOut(projId);
                 setState(10);
             } else if (state === -1) {
-                checkOut(buffer).catch((error) => console.log(error));
-                response = getAvailability(name);
+                response = checkOut(buffer).catch((error) => console.log(error));
                 setState(10);
             } else if (state === 1) {
-                checkIn(buffer).catch((error) => console.log(error));
-                response = getAvailability(name);
+                response = checkIn(buffer).catch((error) => console.log(error));
                 setState(10);
             } else return;
             response.then((data) => setQnty(data));
@@ -93,14 +92,18 @@ function HWSetHandler(props) {
             console.log(error);
         }
     }, [qnty]);
-    async function getAvailability(hwSet) {
-        let url = '/available/' + String(hwSet);
-        const promise = fetch(url).then((response) => response.json()).then((qntyPromise) => qntyPromise.available).then((result) => {return result;});
+    async function getCheckedOut(projId) {
+        let url = '/projects/checkedOut/' + projId;
+        const promise = fetch(url).then((response) => response.json()).then((checkedOut) => checkedOut.out).then((result) => {
+            if (name === "GuitarAmps")
+            return result.at(0);
+            else return result.at(1);
+        });
         return promise;
     }
 
     async function checkOut(buffer) {
-        let url = '/projects/checkedOut/' + name + '/' + projId + '/' + buffer;
+        let url = '/checkedOut/' + name + '/' + projId + '/' + buffer;
         console.log(url);
         //trying to get checked out for Project 1, also returns a promise that has the value inside it
         fetch(url).then((response) => response.json())
@@ -108,7 +111,7 @@ function HWSetHandler(props) {
     }
 
     async function checkIn(buffer) {
-        let url = '/projects/checkedIn/' + name + '/' + projId + '/' + buffer;
+        let url = '/checkedIn/' + name + '/' + projId + '/' + buffer;
         //trying to get checked out for Project 1, also returns a promise that has the value inside it
         fetch(url).then((response) => response.json())
             .then((checkedIn) => checkedIn.out.at(0));
