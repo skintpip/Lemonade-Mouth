@@ -44,7 +44,7 @@ class Project:
             return "invalid project ID, please try again or create a new project"  # change to simple invalid id notif
 
     # removes user from a project
-    def leavePorject(self, ID, user):
+    def leaveProject(self, ID, user):
         if self.doesProjectExist(ID):
             if self.userInProject(ID):
                 userList = self.getUserList()

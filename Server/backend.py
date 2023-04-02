@@ -101,16 +101,35 @@ def get_availability(hwSet):
 
 # This function queries the projectId from the URL and returns the project id to the
 # front end. The front end displays a pop-up message which says “Joined <projectId>”
-@app.route('/join/<hwSet>/<projectId>')
-def joinProject(projectId, hwSet):
-    return {"projectID": [projectId]}
+@app.route('/join/<username>/<projectId>')
+def joinProject(projectId, username):
+    currentProjects = project.Project()
+    if currentProjects.userInProject(projectId, username):
+        return {"error": "already in project"}
+    else:
+        currentProjects.joinProject(projectId, username)
+    return {"success": projectId}
 
 
 # This function queries the projectId from the URL and returns the project id to the
 # front end. The front end displays a pop-up message which says “Left <projectId>”
-@app.route('/leave/<hwSet>/<projectId>')
-def leaveProject(projectId, hwSet):
-    return {"projectID": [projectId]}
+@app.route('/leave/<username>/<projectId>')
+def leaveProject(projectId, username):
+    currentProjects = project.Project()
+    if currentProjects.userInProject(projectId,username):
+        return{"success": projectId}
+    else:
+        return {"error": "user is not in project"}
+
+
+@app.route('/create/projectId')
+def createProject(projectId):
+    currentProjects = project.Project()
+    if currentProjects.doesProjectExist(projectId):
+        return {"error": "project already exists"}
+    else:
+        currentProjects.createNewProject(projectId)
+    return {"success": projectId}
 
 
 # used for login, login function returns -1 if the user does not exist (front end should create a popup and tell the
@@ -129,11 +148,11 @@ def userLogin(username, password):
 
 
 # returns the enrolled projects that the user is in
-@app.route('/projects/<user>')
-def userProjects(user):
+@app.route('/projects/<username>')
+def userProjects(username):
     enrolledProjects = []
     currentProjects = project.Project()
-    enrolledProjects = currentProjects.getEnrolledProjects(user)
+    enrolledProjects = currentProjects.getEnrolledProjects(username)
     return {"projects": enrolledProjects}
 
 
