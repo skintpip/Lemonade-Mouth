@@ -23,10 +23,19 @@ export function Project() {
         );
     }
 
+    const NewProject = () => {
+        return (
+            <div className="newProjects">
+                <div><Button variant="contained" color="secondary" > New Project </Button></div>
+            </div>
+        )
+    }
+
     return (
         <div className="project">
             <Title> Lemonade Mouth </Title>
             <div>{RenderMembers()}</div>
+            <div>{NewProject()}</div>
         </div>
     );
 }
