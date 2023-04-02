@@ -32,6 +32,7 @@ def checkIn_hardware(hwSet, projectId, qty):
     posts = db[hwSet]
     hwSet1.mongo_check_in_item(posts, hwSet, qty)
     client.close()
+    return{"projectID": projectId}
 
 
 # This function queries the projectId and quantity from the URL and returns the
