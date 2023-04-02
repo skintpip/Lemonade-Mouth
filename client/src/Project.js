@@ -32,13 +32,57 @@ export function Project() {
 }
 
 //TODO: HANDLE NOT NUMBER INPUTS
-function QntyHandler(props) {
-    const [projName, setProjName] = useState(props.projName);
+function HWSetHandler(props) {
+    const projId = props.projId.replace(/\s/g, '');
     const [name, setName] = useState(props.name);
-    const [qnty, setQnty] = useState(props.qnty);
+    const [qnty, setQnty] = useState(null);
+    const [state, setState] = useState(0);
+    const [buffer, setBuffer] = useState(null);
     const [msg, setMsg] = useState("Enter qnty");
     const [inputRef, setInputRef] = useState();
 
+
+    useEffect(() => {
+        let response;
+        if(state === 0) {
+            response = getAvailability(name);
+            setState(10);
+        } else if (state === -1) {
+            checkOut(buffer);
+            response = getAvailability(name);
+            setState(10);
+        } else if (state === 1) {
+            checkIn(buffer);
+            response = getAvailability(name);
+            setState(10);
+        }
+        else return;
+        response.then((data) => setQnty(data)).catch(error => console.log(error));
+    }, [qnty]);
+    async function getAvailability(hwSet) {
+        let url = '/available/' + String(hwSet);
+        const promise = fetch(url).then((response) => response.json()).then((qntyPromise) => qntyPromise.available).then((result) => {return result;});
+        return promise;
+    }
+
+    async function checkOut(buffer) {
+        let url = '/projects/checkedOut/' + name + '/' + projId + '/' + buffer;
+        console.log(url);
+        //trying to get checked out for Project 1, also returns a promise that has the value inside it
+        fetch(url).then((response) => response.json())
+            .then((checkedOut) => checkedOut.checkedOut);
+    }
+
+    async function checkIn(buffer) {
+        let url = '/projects/checkedIn/' + name + '/' + projId + '/' + buffer;
+        //trying to get checked out for Project 1, also returns a promise that has the value inside it
+        fetch(url).then((response) => response.json())
+            .then((checkedIn) => checkedIn.out.at(0));
+    }
+
+    /*steps:
+    on create, we update availability
+    on button push, refresh availability, check for valid input, then update client and backend*/
         return (
             <div className="qnty-section">
                 <div>{name}: {qnty}</div>
@@ -47,7 +91,9 @@ function QntyHandler(props) {
                     setInputRef(ref);
                 }}/>
                 <div><Button variant="contained" color="secondary" onClick={() => {
-                    setQnty(Number(qnty) + Number(inputRef.value));
+                   setBuffer(Number(inputRef.value));
+                   setState(1);
+                   setQnty(null);
                 }}>
                     add Items</Button></div>
                 <div><Button variant="contained" color="secondary" onClick={() => {
@@ -55,7 +101,9 @@ function QntyHandler(props) {
                     if (newQnty < 0) {
                         setMsg("Please enter a qnty < current");
                     } else {
-                        setQnty(newQnty);
+                        setBuffer(Number(inputRef.value));
+                        setState(-1);
+                        setQnty(null);
                     }
                 }}>
                     remove Items</Button></div>
@@ -63,9 +111,7 @@ function QntyHandler(props) {
 }
 
 function ProjectMember(props) {
-    const [name, setName] = useState(props.name);
-    const [amps, setAmps] = useState("");
-    const [mics, setMics] = useState("");
+    const name = props.name;
 
         return (
             <div className="project-member">
@@ -73,9 +119,9 @@ function ProjectMember(props) {
                     {name}</div>
                 <div>
                     <ul className="no-bullets">
-                        <li><QntyHandler name="Guitar Amps" qnty={amps}
+                        <li><HWSetHandler name="GuitarAmps" projId={name}
                         /></li>
-                        <li><QntyHandler name="Microphones" qnty={mics}/></li>
+                        <li><HWSetHandler name="Microphones" projId={name}/></li>
                     </ul>
                 </div>
             </div>

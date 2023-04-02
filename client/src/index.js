@@ -31,27 +31,6 @@ const router = createBrowserRouter([
                 }).catch((err) => {
                     return null
                 });
-            // url = '/available/GuitarAmps';
-            //trying to fetch availability for Guitar Amps, its returning as a promise (Needs to be fixed so it returns a value not the promise and value)
-            const availability = fetch(url).then((response) => response.json())
-                .then(async () => {
-                    url = '/available/GuitarAmps';
-                    return await fetch(url)
-                        .then((response) => response.json())
-                        .then((avail) => avail.available)
-                }).catch((err) => {
-                    return null
-                });
-            url = '/projects/checkedOut/Project 1'
-            //trying to get checked out for Project 1, also returns a promise that has the value inside it
-            const checkedOutP1 = fetch(url).then((response) => response.json())
-                .then((checkedOut) => checkedOut.out.at(0)).catch((err) => {
-                    return null
-                });
-            const checkedOutP2 = fetch(url).then((response) => response.json())
-                .then((checkedOut) => checkedOut.out).catch((err) => {
-                    return null
-                });
             return list.then((result) => {
                 const map = new Map();
                 map.set('user', params.get('username'));
