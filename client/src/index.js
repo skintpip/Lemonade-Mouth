@@ -5,7 +5,7 @@ import {Login} from './Login';
 import {Project} from './Project';
 import {Register} from './Register';
 import {
-    createBrowserRouter, json,
+    createBrowserRouter, json, redirect,
     RouterProvider,
 } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
@@ -13,14 +13,13 @@ import reportWebVitals from './reportWebVitals';
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Login/>
+        element: <Login/>,
     },
     {
         path: "projectPage/",
         element: <Project/>,
         action: async ({request}) => {
             const params = await request.formData();
-            console.log(request.method);
             let url = '/login/' + params.get("username") + '/' + params.get("password");
             const list = fetch(url).then((response) => response.json())
                 .then(async (userName) => {
@@ -29,6 +28,7 @@ const router = createBrowserRouter([
                         .then((response) => response.json())
                         .then((projectsList) => projectsList.projects)
                 }).catch((err) => {
+                    console.log(err);
                     return null
                 });
             return list.then((result) => {
@@ -36,16 +36,34 @@ const router = createBrowserRouter([
                 map.set('user', params.get('username'));
                 map.set('password', params.get('password'));
                 map.set('projects', result);
+                map.set('state', 0);
                 return map;
             })
         }
     },
     {
-        path: "register/",
+        path: "register/:message?",
         element: <Register/>,
+        loader: ({params}) => {
+            if(params.message === undefined)
+                return "";
+            else return params.message;
+        },
         action: async ({request}) => {
             const params = await request.formData();
-            return params;
+            const url = '/register/' + params.get("username") + '/' + params.get("password");
+            console.log(url);
+            let result;
+            return result = fetch(url).then((response) => response.json()).then((val) => {
+                console.log(val.username);
+                if(val.username === "new user registered") {
+                    //yay registeration sucess!!
+                    return "Registration Successful! Return to login page.";
+                } else {
+                    //booooo registration bad D:<
+                    return "Error: user already exists. Please Try again.";
+                }
+            })
         }
     }
 ])
