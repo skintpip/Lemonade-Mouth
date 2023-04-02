@@ -44,20 +44,23 @@ function HWSetHandler(props) {
 
     useEffect(() => {
         let response;
-        if(state === 0) {
-            response = getAvailability(name);
-            setState(10);
-        } else if (state === -1) {
-            checkOut(buffer);
-            response = getAvailability(name);
-            setState(10);
-        } else if (state === 1) {
-            checkIn(buffer);
-            response = getAvailability(name);
-            setState(10);
+        try {
+            if (state === 0) {
+                response = getAvailability(name);
+                setState(10);
+            } else if (state === -1) {
+                checkOut(buffer).catch((error) => console.log(error));
+                response = getAvailability(name);
+                setState(10);
+            } else if (state === 1) {
+                checkIn(buffer).catch((error) => console.log(error));
+                response = getAvailability(name);
+                setState(10);
+            } else return;
+            response.then((data) => setQnty(data));
+        } catch (error) {
+            console.log(error);
         }
-        else return;
-        response.then((data) => setQnty(data)).catch(error => console.log(error));
     }, [qnty]);
     async function getAvailability(hwSet) {
         let url = '/available/' + String(hwSet);
