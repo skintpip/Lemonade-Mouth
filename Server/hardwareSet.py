@@ -131,7 +131,7 @@ class hardwareSet:
         #         self.__availability = qty
         #         self.__checkedout_qty = self.__checkedout_qty + qty
         #         return 0
-        if qty < 0:
+        if (qty) < 0:
             return -1, 0
         toUpdate = {"Description": name}
         oldAvail = self.getAvailability(collection, name)

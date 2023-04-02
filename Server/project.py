@@ -66,7 +66,7 @@ class Project:
     # returns a list of the number of guitar amps (index 0) and microphones (index 1) checkout out to a given project
     def getCheckedOutUnits(self, ID):
         list = []
-        list.append(projectColl.find({"Project ID": ID})[0].get("Guitar Amps"))
+        list.append(projectColl.find({"Project ID": ID})[0].get("GuitarAmps"))
         list.append(projectColl.find({"Project ID": ID})[0].get("Microphones"))
         return list
 
@@ -75,15 +75,23 @@ class Project:
     def checkOutProject(self, ID, amps, mics):
         toUpdate = {"Project ID": ID}
         prevOutList = self.getCheckedOutUnits(ID)
-        newInfo = {"$set": {"Project ID": ID, "GuitarAmps": prevOutList[0] - amps, "Microphones": prevOutList[1] - mics}}
+        newInfo = {"$set": {"Project ID": ID, "GuitarAmps": int(prevOutList[0]) + int(amps),
+                            "Microphones": int(prevOutList[1]) + int(mics)}}
         projectColl.update_one(toUpdate, newInfo)
-        return [amps - prevOutList[0], mics - prevOutList[1]]
+        newOutList = self.getCheckedOutUnits(ID)
+        return [int(newOutList[0]), int(newOutList[1])]
 
     # Updates the project for the number of the item wanted to be checked into the database
     # Works for both Guitar Amps and Microphones
     def checkInProject(self, ID, amps, mics):
         toUpdate = {"Project ID": ID}
         prevOutList = self.getCheckedOutUnits(ID)
-        newInfo = {"$set": {"Project ID": ID, "GuitarAmps": prevOutList[0] + amps, "Microphones": prevOutList[1] + mics}}
+        if prevOutList[0] - amps < 0:
+            newInfo = {"$set": {"Project ID": ID, "GuitarAmps": 0, "Microphones": prevOutList[1] - mics}}
+        elif prevOutList[1] - mics < 0:
+            newInfo = {"$set": {"Project ID": ID, "GuitarAmps": prevOutList[0] - amps, "Microphones": 0}}
+        else:
+            newInfo = {"$set": {"Project ID": ID, "GuitarAmps": prevOutList[0] - amps, "Microphones": prevOutList[1] - mics}}
         projectColl.update_one(toUpdate, newInfo)
-        return [amps + prevOutList[0], mics + prevOutList[1]]
+        newOutList = self.getCheckedOutUnits(ID)
+        return [int(newOutList[0]), int(newOutList[1])]

@@ -29,9 +29,9 @@ def checkIn_hardware(hwSet, projectId, qty):
         "mongodb+srv://jkressbach:CIrRa3yVV8dhnfKT@cluster0.v1qezrw.mongodb.net/?retryWrites=true&w=majority",
         tlsCAFile=ca)
     db = client["HardwareSet"]
-    posts = db[hwSet]
+    posts = db["HWSet1"]
     currentProjects = project.Project()
-    truth = hwSet1.mongo_check_in_item(posts, hwSet, qty)
+    truth = hwSet1.mongo_check_in_item(posts, hwSet, int(qty))
     cap = hwSet1.getCapacity(posts, hwSet)
     oldAvail = truth[1]
     if truth[0] == -1:
@@ -43,9 +43,9 @@ def checkIn_hardware(hwSet, projectId, qty):
             currentProjects.checkInProject(projectId, 0, cap - oldAvail)
     elif truth[0] == 1:
         if hwSet == "GuitarAmps":
-            currentProjects.checkInProject(projectId, qty, 0)
+            currentProjects.checkInProject(projectId, int(qty), 0)
         elif hwSet == "Microphones":
-            currentProjects.checkInProject(projectId, 0, qty)
+            currentProjects.checkInProject(projectId, 0, int(qty))
     client.close()
     checked = currentProjects.getCheckedOutUnits(projectId)
     return {"projectID": projectId, "checkedIn": checked}
