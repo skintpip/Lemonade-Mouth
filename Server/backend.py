@@ -122,7 +122,7 @@ def getCheckedOut(projectID):
 def registerUser(username, password):
     newUser = user.User(username, password)
     if not newUser.doesUserExist(username):
-        newUser.createNewuser(username, password)
+        newUser.createNewUser(username, password)
         return {"username": "new user registered"}
     else:
         return {"username": "user already exists"}
