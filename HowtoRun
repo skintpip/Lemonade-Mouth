@@ -1,6 +1,8 @@
-Backend:
-pip install pymongo
-pip install flask
-pip install certifi
-pip install os
-have configuration set to current file and run backend.py
+Steps to running the backend:
+1) pip install pymongo
+2) pip install flask
+3) pip install certifi
+4) pip install os
+5) have configuration set to current file and run backend.py
+6) run npm start only when inside the client directory of Lemonade-Mouth
+7) site should launch in a couple seconds, and start off by registering or logging in!
