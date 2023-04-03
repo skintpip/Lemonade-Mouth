@@ -1,0 +1,6 @@
+Backend:
+pip install pymongo
+pip install flask
+pip install certifi
+pip install os
+have configuration set to current file and run backend.py

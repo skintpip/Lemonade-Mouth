@@ -9,7 +9,6 @@ import os
 
 app = Flask(__name__)
 
-
 @app.route('/')
 def index():
     return app.send_static_file('index.html')
@@ -21,7 +20,7 @@ def index():
 
 # This function queries the projectId and quantity from the URL and returns the project id and quantity to the front
 # end. The front end displays a pop - up message which says “ < qty > hardware checked in”
-@app.route('/checkedIn/<hwSet>/<projectId>/<qty>')
+@app.route('/checkedIn/<hwSet>/<string:projectId>/<qty>')
 def checkIn_hardware(hwSet, projectId, qty):
     hwSet1 = hardwareSet.hardwareSet(hwSet)
     ca = certifi.where()
@@ -54,7 +53,7 @@ def checkIn_hardware(hwSet, projectId, qty):
 # This function queries the projectId and quantity from the URL and returns the
 # project id and quantity to the front end. The front end displays a pop-up message
 # which says “<qty> hardware checked out”
-@app.route('/checkedOut/<hwSet>/<projectId>/<qty>')
+@app.route('/checkedOut/<hwSet>/<string:projectId>/<qty>')
 def checkOut_hardware(hwSet, projectId, qty):
     hwSet1 = hardwareSet.hardwareSet(hwSet)
     currentProjects = project.Project()
@@ -86,7 +85,7 @@ def checkOut_hardware(hwSet, projectId, qty):
 # This function queries the projectId from the URL and returns the
 # availability of that project to the front end. The front end displays a pop-up message
 # which says “<availability> hardware available”
-@app.route('/available/<hwSet>')
+@app.route('/available/<string:hwSet>')
 def get_availability(hwSet):
     hwSet1 = hardwareSet.hardwareSet(hwSet)
     ca = certifi.where()
@@ -101,42 +100,43 @@ def get_availability(hwSet):
 
 # This function queries the projectId from the URL and returns the project id to the
 # front end. The front end displays a pop-up message which says “Joined <projectId>”
-@app.route('/join/<username>/<projectId>')
+@app.route('/join/<string:username>/<string:projectId>')
 def joinProject(projectId, username):
     currentProjects = project.Project()
     if currentProjects.userInProject(projectId, username):
-        return {"error": "already in project"}
+        return {"result": "error"}
     else:
         currentProjects.joinProject(projectId, username)
-    return {"success": projectId}
+    return {"result": "success"}
 
 
 # This function queries the projectId from the URL and returns the project id to the
 # front end. The front end displays a pop-up message which says “Left <projectId>”
-@app.route('/leave/<username>/<projectId>')
+@app.route('/leave/<string:username>/<string:projectId>')
 def leaveProject(projectId, username):
     currentProjects = project.Project()
     if currentProjects.userInProject(projectId,username):
-        return{"success": projectId}
+        currentProjects.leaveProject(projectId,username)
+        return{"result": "success"}
     else:
-        return {"error": "user is not in project"}
+        return {"result": "error"}
 
 
-@app.route('/create/projectId')
+@app.route('/create/string:projectId>')
 def createProject(projectId):
     currentProjects = project.Project()
     if currentProjects.doesProjectExist(projectId):
-        return {"error": "project already exists"}
+        return {"result": "error"}
     else:
         currentProjects.createNewProject(projectId)
-    return {"success": projectId}
+    return {"result": "success", "projectID": projectId}
 
 
 # used for login, login function returns -1 if the user does not exist (front end should create a popup and tell the
 # user to register) login function returns 1 if the user and password combo exists, gives the user name to front end
 # allowing user to move onto projects page login function returns 0 if the user exists but the password is wrong (
 # front end should prompt user to retype password)
-@app.route('/login/<username>/<password>')
+@app.route('/login/<string:username>/<string:password>')
 def userLogin(username, password):
     currentUser = user.User(username, password)
     if currentUser.loginExistingUser(username, password) == -1:
@@ -148,7 +148,7 @@ def userLogin(username, password):
 
 
 # returns the enrolled projects that the user is in
-@app.route('/projects/<username>')
+@app.route('/projects/<string:username>')
 def userProjects(username):
     enrolledProjects = []
     currentProjects = project.Project()
@@ -157,15 +157,22 @@ def userProjects(username):
 
 
 # returns the number of items that are checked out for each HWSet for a specific project
-@app.route('/projects/checkedOut/<projectID>')
+@app.route('/projects/checkedOut/<string:projectID>')
 def getCheckedOut(projectID):
+    ca = certifi.where()
+
+    client = pymongo.MongoClient(
+        "mongodb+srv://jkressbach:CIrRa3yVV8dhnfKT@cluster0.v1qezrw.mongodb.net/?retryWrites=true&w=majority",
+        tlsCAFile=ca)
+    dbP = client["Projects"]
+    projectColl = dbP["Project1"]
     projects = project.Project()
     checkedOut = projects.getCheckedOutUnits(projectID)
     return {"out": checkedOut}
 
 
 # Registers a new user, given they do not already exist in the set of current users
-@app.route('/register/<username>/<password>')
+@app.route('/register/<string:username>/<string:password>')
 def registerUser(username, password):
     newUser = user.User(username, password)
     if not newUser.doesUserExist(username):

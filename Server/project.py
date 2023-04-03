@@ -5,8 +5,8 @@ ca = certifi.where()
 
 client = pymongo.MongoClient(
     "mongodb+srv://jkressbach:CIrRa3yVV8dhnfKT@cluster0.v1qezrw.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
-db = client["Projects"]
-projectColl = db["Project1"]
+dbP = client["Projects"]
+projectColl = dbP["Project1"]
 
 
 class Project:
@@ -34,7 +34,7 @@ class Project:
     # adds user to project (returning varying errors if needed)
     def joinProject(self, ID, user):
         if self.doesProjectExist(ID):
-            if self.userInProject(ID):
+            if self.userInProject(ID, user):
                 return "Error: " + user + " already part of project!"  # change to simple already added error notif
             else:
                 userList = self.getUserList(ID)
@@ -46,8 +46,8 @@ class Project:
     # removes user from a project
     def leaveProject(self, ID, user):
         if self.doesProjectExist(ID):
-            if self.userInProject(ID):
-                userList = self.getUserList()
+            if self.userInProject(ID,user):
+                userList = self.getUserList(ID)
                 userList.remove(user)
                 self.setUsers(ID, userList)
             else:
@@ -57,7 +57,7 @@ class Project:
 
     # checks for valid Project ID
     def doesProjectExist(self, ID):
-        if projectColl.find({"Project ID": {"$in": ID}}).count() > 0:
+        if projectColl.count_documents({"Project ID": ID}, limit=1):
             return True
         return False
 

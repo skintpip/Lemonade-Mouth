@@ -9,6 +9,7 @@ import {
     RouterProvider,
 } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
+import {NewProjectForm} from "./NewProjectForm";
 
 const router = createBrowserRouter([
     {
@@ -27,16 +28,12 @@ const router = createBrowserRouter([
                     return await fetch(url)
                         .then((response) => response.json())
                         .then((projectsList) => projectsList.projects)
-                }).catch((err) => {
-                    console.log(err);
-                    return null
                 });
             return list.then((result) => {
                 const map = new Map();
                 map.set('user', params.get('username'));
                 map.set('password', params.get('password'));
                 map.set('projects', result);
-                map.set('state', 0);
                 return map;
             })
         }
@@ -64,6 +61,14 @@ const router = createBrowserRouter([
                     return "Error: user already exists. Please Try again.";
                 }
             })
+        }
+    },
+    {
+        path: "/newProject/",
+        element: <NewProjectForm/>,
+        action: async({request}) => {
+            const params = await request.formData();
+            return params;
         }
     }
 ])
