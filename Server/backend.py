@@ -122,7 +122,7 @@ def leaveProject(projectId, username):
         return {"result": "error"}
 
 
-@app.route('/create/string:projectId>')
+@app.route('/create/<string:projectId>')
 def createProject(projectId):
     currentProjects = project.Project()
     if currentProjects.doesProjectExist(projectId):
@@ -140,7 +140,7 @@ def createProject(projectId):
 def userLogin(username, password):
     currentUser = user.User(username, password)
     if currentUser.loginExistingUser(username, password) == -1:
-        return {"username": "does not exist"}
+        return {"username": "user does not exist"}
     elif currentUser.loginExistingUser(username, password) == 1:
         return {"username": username}
     elif currentUser.loginExistingUser(username, password) == 0:

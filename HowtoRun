@@ -4,5 +4,6 @@ Steps to running the backend:
 3) pip install certifi
 4) pip install os
 5) have configuration set to current file and run backend.py
-6) run npm start only when inside the client directory of Lemonade-Mouth
-7) site should launch in a couple seconds, and start off by registering or logging in!
+6) run npm install @mui/material @emotion/react @emotion/styled react-router-dom localforage match-sorter sort-by inside client directory
+7) run npm start only when inside the client directory of Lemonade-Mouth
+8) site should launch in a couple seconds, and start off by registering or logging in!

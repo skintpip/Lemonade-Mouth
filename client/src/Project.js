@@ -18,6 +18,8 @@ export function Project() {
     const [projId, setProjId] = useState("");
     const [state, setState] = useState(null);
     const [msg, setMsg] = useState("");
+    const [guitarAmps, setGuitarAmps] = useState(0);
+    const [microphones, setMicrophones] = useState(0);
 
 
     useEffect(() => {
@@ -64,6 +66,14 @@ export function Project() {
             setState(10);
             })
         }
+        let guitarAmps = updateAvailability('GuitarAmps');
+        let microphones = updateAvailability('Microphones');
+        guitarAmps.then((result) => {
+            setGuitarAmps(result);
+        });
+        microphones.then((result) => {
+            setMicrophones(result);
+        })
     }, [state]);
 
 
@@ -96,7 +106,7 @@ export function Project() {
             });
     }
     async function createProject() {
-        let url = '/create/' + projId;
+        const url = '/create/' + projId;
         return fetch(url).then((response) => response.json()).then((result) => {
             return result.result;
         });
@@ -107,8 +117,15 @@ export function Project() {
         console.log(url);
         return fetch(url).then((response) => response.json())
             .then((result) => {
-                console.log()
                 return result.result;
+            });
+    }
+
+    async function updateAvailability(hwSet) {
+        const url = '/available/' + hwSet;
+        return fetch(url).then((response) => response.json())
+            .then((result) => {
+                return result.available;
             });
     }
 
@@ -118,12 +135,16 @@ export function Project() {
             <Title> {Title()} </Title>
             <div>{msg}</div>
             <div>{RenderMembers()}</div>
-            <Button variant="contained" color="secondary"  onClick={passData}> New Project </Button>
+            <div className="Availability">
+                Total GuitarAmps Remaining: {guitarAmps} | Total Microphones Remaining: {microphones}
+            </div>
             <div>
                 <input type="text" name="projId" variant="filled" placeholder="ProjectID" onChange={handleChange}/>
                 <Button variant="contained" color="secondary" onClick={() => setState(1)}> Join Project </Button>
                 <Button variant="contained" color="secondary" onClick={() => setState(2)}> Leave Project </Button>
                 <Button variant="contained" color="secondary" type="submit" onClick={() => setState(3)}>Create Project</Button>
+                <div><Button variant="contained" color="secondary" component={Link} to='/'>Logout</Button></div>
+
 
             </div>
 
@@ -168,7 +189,7 @@ function HWSetHandler(props) {
     async function getCheckedOut(projId) {
         let url = '/projects/checkedOut/' + projId;
         return fetch(url).then((response) => response.json()).then((checkedOut) => checkedOut.out).then((result) => {
-            console.log(result);
+            //console.log(result);
             if (name === "GuitarAmps")
                 return result.at(0);
             else return result.at(1);
@@ -204,7 +225,7 @@ function HWSetHandler(props) {
     on button push, refresh availability, check for valid input, then update client and backend*/
     return (
         <div className="qnty-section">
-            <div>{name}: {qnty}</div>
+            <div>{name}: {qnty}/75</div>
             <TextField inputProps={{inputMode: 'numeric', pattern: '[0-9]*'}} id="outlined-basic"
                        label={msg} variant="outlined" size="small" inputRef={ref => {
                 setInputRef(ref);

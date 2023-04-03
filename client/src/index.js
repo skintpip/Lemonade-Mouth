@@ -21,21 +21,16 @@ const router = createBrowserRouter([
         element: <Project/>,
         action: async ({request}) => {
             const params = await request.formData();
-            let url = '/login/' + params.get("username") + '/' + params.get("password");
-            const list = fetch(url).then((response) => response.json())
-                .then(async (userName) => {
-                    url = '/projects/' + userName.username;
-                    return await fetch(url)
-                        .then((response) => response.json())
-                        .then((projectsList) => projectsList.projects)
-                });
-            return list.then((result) => {
-                const map = new Map();
-                map.set('user', params.get('username'));
-                map.set('password', params.get('password'));
-                map.set('projects', result);
-                return map;
-            })
+            const result = params.get("username");
+            const url = '/projects/' + result;
+            let list = await fetch(url)
+                .then((response) => response.json())
+                .then((projectsList) => projectsList.projects);
+            const map = new Map();
+            map.set('user', params.get('username'));
+            map.set('password', params.get('password'));
+            map.set('projects', list);
+            return map;
         }
     },
     {
