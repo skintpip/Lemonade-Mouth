@@ -1,7 +1,7 @@
 # This is the driver code that uses the hardwareSet class that you are writing.
 import certifi
 import pymongo
-
+import pytest
 import hardwareSet
 
 ca = certifi.where()
@@ -11,52 +11,88 @@ db = client["HardwareSet"]
 posts = db["HWSet1"]
 
 # Create object hwSet1 of class hardwareSet with capacity of 250
-hwSet1 = hardwareSet.hardwareSet("Guitar Amps")
-# hwSet1.initialize_capacity(250)
-# # print initial capacity units of hardware set 1
-# print("Total capacity of units:", hwSet1.get_capacity())
-#
-# # print number of available units of hardware set 1
-# print("Number of available units:", hwSet1.get_availability())
-#
-# # Create a list of two test items
-# test = [20, 300]
-# Run the test for all items in the test list
-# for i in test:
-#
-#     err = hwSet1.check_out(i)
-#     # if function returns error code 0, it means we were able to checkout requested number of units, else we were
-#     # not able to check out requested number of units
-#     if (err == 0):
-#         # print number of units available after checkout
-#         print("Number of units available after checking out", i, "units:", hwSet1.get_availability())
-#         # print number of checkout units
-#         print("Number of total checkedout units", hwSet1.get_checkedout_qty())
-#     else:
-#         # print number of units available after checkout
-#         print("Number of units available after checking out", i, "units:", hwSet1.get_availability())
-#         # print number of checkout units
-#         print("Number of total checkedout units", hwSet1.get_checkedout_qty())
-#         print("Could not check out requested number of units")
+hwSet1 = hardwareSet.hardwareSet("GuitarAmps")
 
 
-# checkin 180 units
-# hwSet1.check_in(180)
-# hwSet1.mongo_check_out_item(posts, "Guitar Amps", 20)
-# hwSet1.setAvailability(posts, "Guitar Amps", 12)
-# print number of units available after checkin
-# print("Number of units available after checking in 180 units:", hwSet1.get_availability())
-
-# set capacity to 50
-# hwSet1.set_capacity(50)
-# print capacity now
-# print("Capacity of HWSet", hwSet1.get_capacity())
+# testing checking out a number above capacity
+def test_checkOutOverCapacityAmps():
+    cap = hwSet1.getCapacity(posts, "GuitarAmps")
+    hwSet1.mongo_check_out_item(posts, "GuitarAmps", cap + 1)
+    checkedOut = hwSet1.getCheckedOut(posts, "GuitarAmps")
+    assert checkedOut == cap
 
 
-# hwSet1.mongo_init_item(posts, "Test Item", 100)
-# hwSet1.mongo_check_in_item(posts, "GuitarAmps", 75)
-# hwSet1.mongo_check_out_item(posts, "Test Item", 6)
-print("Capacity of GuitarAmps", hwSet1.getCapacity(posts, "GuitarAmps"))
+# testing checking out a number above capacity
+
+def test_checkOutOverCapacityMics():
+    cap = hwSet1.getCapacity(posts, "Microphones")
+    hwSet1.mongo_check_out_item(posts, "Microphones", cap + 1)
+    checkedOut = hwSet1.getCheckedOut(posts, "Microphones")
+    assert checkedOut == cap
+
+
+# testing checking in a number above capacity
+def test_checkInOverCapacityAmps():
+    cap = hwSet1.getCapacity(posts, "GuitarAmps")
+    hwSet1.mongo_check_in_item(posts, "GuitarAmps", cap + 1)
+    checkedIn = cap - hwSet1.getCheckedOut(posts, "GuitarAmps")
+    assert checkedIn == cap
+
+
+# testing checking in a number above capacity
+def test_checkInOverCapacityMics():
+    cap = hwSet1.getCapacity(posts, "Microphones")
+    hwSet1.mongo_check_in_item(posts, "Microphones", cap + 1)
+    checkedIn = cap - hwSet1.getCheckedOut(posts, "Microphones")
+    assert checkedIn == cap
+
+
+# testing checking out an arbitrary number below capacity
+def test_checkOutAmps():
+    cap = hwSet1.getCapacity(posts, "GuitarAmps")
+    hwSet1.mongo_check_out_item(posts, "GuitarAmps", 30)
+    checkedOut = hwSet1.getCheckedOut(posts, "GuitarAmps")
+    availability = hwSet1.getAvailability(posts, "GuitarAmps")
+    assert checkedOut == cap - availability
+
+
+# testing checking out an arbitrary number below capacity
+def test_checkOutMics():
+    cap = hwSet1.getCapacity(posts, "Microphones")
+    hwSet1.mongo_check_out_item(posts, "Microphones", 30)
+    checkedOut = hwSet1.getCheckedOut(posts, "Microphones")
+    availability = hwSet1.getAvailability(posts, "Microphones")
+    assert checkedOut == cap - availability
+
+
+# testing checking in an arbitrary number below capacity
+def test_checkInAmps():
+    cap = hwSet1.getCapacity(posts, "GuitarAmps")
+    hwSet1.mongo_check_in_item(posts, "GuitarAmps", 20)
+    checkedIn = cap - hwSet1.getCheckedOut(posts, "GuitarAmps")
+    availability = hwSet1.getAvailability(posts, "GuitarAmps")
+    assert checkedIn == availability
+
+
+# testing checking in an arbitrary number below capacity
+def test_checkInMics():
+    cap = hwSet1.getCapacity(posts, "Microphones")
+    hwSet1.mongo_check_in_item(posts, "Microphones", 20)
+    checkedIn = cap - hwSet1.getCheckedOut(posts, "Microphones")
+    availability = hwSet1.getAvailability(posts, "Microphones")
+    assert checkedIn == availability
+
+
+# using this to reset collections
+def test_checkInCap():
+    capAmps = hwSet1.getCapacity(posts, "GuitarAmps")
+    capMics = hwSet1.getCapacity(posts, "Microphones")
+    hwSet1.mongo_check_in_item(posts, "GuitarAmps", capAmps)
+    hwSet1.mongo_check_in_item(posts, "Microphones", capMics)
+
+# TODO: test set checkedOut, set availability, set capacity, get checkedOut, get availability, get capacity
+
+# print("Capacity of GuitarAmps", hwSet1.getCapacity(posts, "GuitarAmps"))
 # print("Checked out", hwSet1.getCheckedOut(posts, "GuitarAmps"), "Test Items")
 
-client.close()
+# client.close()
