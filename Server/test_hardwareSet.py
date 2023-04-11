@@ -90,7 +90,72 @@ def test_checkInCap():
     hwSet1.mongo_check_in_item(posts, "GuitarAmps", capAmps)
     hwSet1.mongo_check_in_item(posts, "Microphones", capMics)
 
-# TODO: test set checkedOut, set availability, set capacity, get checkedOut, get availability, get capacity
+
+def test_setCheckedOut():
+    checkedOutInitialGuitarAmps = hwSet1.getCheckedOut(posts, "GuitarAmps")
+    checkedOutInitialMics = hwSet1.getCheckedOut(posts, "Microphones")
+    hwSet1.setCheckedOut(posts, "GuitarAmps", checkedOutInitialGuitarAmps + 1)
+    hwSet1.setCheckedOut(posts, "Microphones", checkedOutInitialMics + 1)
+    checkedOutPostGuitarAmps = hwSet1.getCheckedOut(posts, "GuitarAmps")
+    checkedOutPostMics = hwSet1.getCheckedOut(posts, "Microphones")
+    assert checkedOutPostGuitarAmps - 1 == checkedOutInitialGuitarAmps
+    assert checkedOutPostMics - 1 == checkedOutInitialMics
+
+
+def test_setAvailability():
+    initialGA = hwSet1.getAvailability(posts, "GuitarAmps")
+    initialM = hwSet1.getAvailability(posts, "Microphones")
+    hwSet1.setAvailability(posts, "GuitarAmps", initialGA + 1)
+    hwSet1.setAvailability(posts, "Microphones", initialM + 1)
+    postGA = hwSet1.getAvailability(posts, "GuitarAmps")
+    postM = hwSet1.getAvailability(posts, "Microphones")
+    assert postGA - 1 == initialGA
+    assert postM - 1 == initialM
+
+
+def test_setCapacity():
+    initialGACap = hwSet1.getCapacity(posts, "GuitarAmps")
+    initialMCap = hwSet1.getCapacity(posts, "Microphones")
+    hwSet1.setCapacity(posts, "GuitarAmps", initialGACap + 1)
+    hwSet1.setCapacity(posts, "Microphones", initialMCap + 1)
+    postGACap = hwSet1.getCapacity(posts, "GuitarAmps")
+    postMCap = hwSet1.getCapacity(posts, "Microphones")
+    assert postGACap - 1 == initialGACap
+    assert postMCap - 1 == initialMCap
+
+
+def test_getCheckedOut():
+    checkedOutInitialGuitarAmps = hwSet1.getCheckedOut(posts, "GuitarAmps")
+    checkedOutInitialMics = hwSet1.getCheckedOut(posts, "Microphones")
+    hwSet1.setCheckedOut(posts, "GuitarAmps", 3)
+    hwSet1.setCheckedOut(posts, "Microphones", 3)
+    assert hwSet1.getCheckedOut(posts, "GuitarAmps") == 3
+    assert hwSet1.getCheckedOut(posts, "Microphones") == 3
+    hwSet1.setCheckedOut(posts, "GuitarAmps", checkedOutInitialGuitarAmps)
+    hwSet1.setCheckedOut(posts, "Microphones", checkedOutInitialMics)
+
+
+def test_getAvailability():
+    initialGuitarAmps = hwSet1.getAvailability(posts, "GuitarAmps")
+    initialMics = hwSet1.getAvailability(posts, "Microphones")
+    hwSet1.setAvailability(posts, "GuitarAmps", 3)
+    hwSet1.setAvailability(posts, "Microphones", 3)
+    assert hwSet1.setAvailability(posts, "GuitarAmps") == 3
+    assert hwSet1.setAvailability(posts, "Microphones") == 3
+    hwSet1.setAvailability(posts, "GuitarAmps", initialGuitarAmps)
+    hwSet1.setAvailability(posts, "Microphones", initialMics)
+
+
+def test_getCapacity():
+    initialCapGuitarAmps = hwSet1.getCapacity(posts, "GuitarAmps")
+    initialCapMics = hwSet1.getCapacity(posts, "Microphones")
+    hwSet1.setCapacity(posts, "GuitarAmps", 3)
+    hwSet1.setCapacity(posts, "Microphones", 3)
+    assert hwSet1.getCapacity(posts, "GuitarAmps") == 3
+    assert hwSet1.getCapacity(posts, "Microphones") == 3
+    hwSet1.setCapacity(posts, "GuitarAmps", initialCapGuitarAmps)
+    hwSet1.setCapacity(posts, "Microphones", initialCapMics)
+
 
 # print("Capacity of GuitarAmps", hwSet1.getCapacity(posts, "GuitarAmps"))
 # print("Checked out", hwSet1.getCheckedOut(posts, "GuitarAmps"), "Test Items")
