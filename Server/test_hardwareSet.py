@@ -11,7 +11,7 @@ db = client["HardwareSet"]
 posts = db["HWSet1"]
 
 # Create object hwSet1 of class hardwareSet with capacity of 250
-hwSet1 = hardwareSet.hardwareSet("GuitarAmps")
+hwSet1 = hardwareSet.hardwareSet()
 
 
 # testing checking out a number above capacity
@@ -140,8 +140,8 @@ def test_getAvailability():
     initialMics = hwSet1.getAvailability(posts, "Microphones")
     hwSet1.setAvailability(posts, "GuitarAmps", 3)
     hwSet1.setAvailability(posts, "Microphones", 3)
-    assert hwSet1.setAvailability(posts, "GuitarAmps") == 3
-    assert hwSet1.setAvailability(posts, "Microphones") == 3
+    assert hwSet1.getAvailability(posts, "GuitarAmps") == 3
+    assert hwSet1.getAvailability(posts, "Microphones") == 3
     hwSet1.setAvailability(posts, "GuitarAmps", initialGuitarAmps)
     hwSet1.setAvailability(posts, "Microphones", initialMics)
 
