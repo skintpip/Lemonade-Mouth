@@ -9,9 +9,6 @@ db = client["HardwareSet"]
 posts = db["HWSet1"]
 
 
-# capacity = posts.find({"Guitar Amps": "Capacity"})
-# print(capacity)
-# print(collection)
 def addCluster(name, qty):
     # change this to have name, qty parameters and call hardwareSet constructor
     post = {"Description": name,
@@ -20,24 +17,6 @@ def addCluster(name, qty):
             }
     post_id = posts.insert_one(post).inserted_id
     print(post)
-
-    # post2 = {"Description": "Speaker",
-    #         "Capacity": "100",
-    #         "Availability": "100",
-    #         }
-    # post_id2 = posts.insert_one(post2).inserted_id
-    # print(post2)
-
-
-# print ("there are" + current.getAvailability() + current.getName() + "available")
-
-"""
-By Wednesday 2/22/23:
-
-output what hardware is being sold (based on mongodb cluster data)
-type name to show availability and capacity (xxx/yyy)
-type check out / check in xxx adn updated numbers are shown
-"""
 
 
 # print list of all types of hardware in database, and what is available
@@ -55,8 +34,4 @@ def currentHardware(name):
         x += 1
     print(x)
 
-
-#addCluster("Microphone", "50")
-# currentHardware(input("Which type of hardware would you like to interact with?"))
 currentHardware("Guitar Amps")
-# returns available amount of hardware

@@ -1,4 +1,3 @@
-# This is the driver code that uses the hardwareSet class that you are writing.
 import certifi
 import pymongo
 import pytest
@@ -155,9 +154,3 @@ def test_getCapacity():
     assert hwSet1.getCapacity(posts, "Microphones") == 3
     hwSet1.setCapacity(posts, "GuitarAmps", initialCapGuitarAmps)
     hwSet1.setCapacity(posts, "Microphones", initialCapMics)
-
-
-# print("Capacity of GuitarAmps", hwSet1.getCapacity(posts, "GuitarAmps"))
-# print("Checked out", hwSet1.getCheckedOut(posts, "GuitarAmps"), "Test Items")
-
-# client.close()

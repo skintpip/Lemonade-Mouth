@@ -11,20 +11,6 @@ userColl = db["Logins"]
 
 
 class User:
-
-    # local, not on mongo (erase later)
-    def __init__(self, username, password):
-        self.__username = username
-        self.__password = password
-
-    # -----------------------------------------------------------------------------------------------
-    # mongo stuff
-
-    # default constructor, for testing purposes
-    # def __init__(self):
-    #     username = ""
-    #     password = ""
-
     # stores login for new user in database (password is encrypted)
     def createNewUser(self, username, password):
         userColl.insert_one(
@@ -45,14 +31,6 @@ class User:
     def doesUserExist(self, username):
         if userColl.count_documents({"Username": cipher.encrypt(username, 3, 1)}, limit=1):
             return True
-        return False
-
-    def doesUserAndPassExist(self, username, password):
-        encUser = cipher.encrypt(username, 3, 1)
-        encPass = cipher.encrypt(password, 3, 1)  # TODO
-        if userColl.count_documents({"Username": encUser}, limit=1) != 0:
-            if userColl.count_documents({"Password": encPass}, limit=1) != 0:
-                return True
         return False
 
     # returns decrypted password of a given user
