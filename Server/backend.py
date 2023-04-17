@@ -22,7 +22,7 @@ def index():
 # end. The front end displays a pop - up message which says “ < qty > hardware checked in”
 @app.route('/checkedIn/<hwSet>/<string:projectId>/<qty>')
 def checkIn_hardware(hwSet, projectId, qty):
-    hwSet1 = hardwareSet.hardwareSet(hwSet)
+    hwSet1 = hardwareSet.hardwareSet()
     ca = certifi.where()
     client = pymongo.MongoClient(
         "mongodb+srv://jkressbach:CIrRa3yVV8dhnfKT@cluster0.v1qezrw.mongodb.net/?retryWrites=true&w=majority",
@@ -55,7 +55,7 @@ def checkIn_hardware(hwSet, projectId, qty):
 # which says “<qty> hardware checked out”
 @app.route('/checkedOut/<hwSet>/<string:projectId>/<qty>')
 def checkOut_hardware(hwSet, projectId, qty):
-    hwSet1 = hardwareSet.hardwareSet(hwSet)
+    hwSet1 = hardwareSet.hardwareSet()
     currentProjects = project.Project()
     ca = certifi.where()
     client = pymongo.MongoClient(
@@ -87,7 +87,7 @@ def checkOut_hardware(hwSet, projectId, qty):
 # which says “<availability> hardware available”
 @app.route('/available/<string:hwSet>')
 def get_availability(hwSet):
-    hwSet1 = hardwareSet.hardwareSet(hwSet)
+    hwSet1 = hardwareSet.hardwareSet()
     ca = certifi.where()
     client = pymongo.MongoClient(
         "mongodb+srv://jkressbach:CIrRa3yVV8dhnfKT@cluster0.v1qezrw.mongodb.net/?retryWrites=true&w=majority",
@@ -174,7 +174,7 @@ def getCheckedOut(projectID):
 # Registers a new user, given they do not already exist in the set of current users
 @app.route('/register/<string:username>/<string:password>')
 def registerUser(username, password):
-    newUser = user.User(username, password)
+    newUser = user.User()
     if not newUser.doesUserExist(username):
         newUser.createNewUser(username, password)
         return {"username": "new user registered"}
