@@ -18,19 +18,19 @@ def main():
 
 
 def testCreateUser():
-    testUser = user.User("yellow", "test")
+    testUser = user.User()
 
     testUser.createNewUser("yellow", "test")
 
 
 def testLoginExistingUser():
-    testUser = user.User("yellow", "test")
+    testUser = user.User()
     print(testUser.loginExistingUser("Jonny2", "abc123"))
     print(testUser.loginExistingUser("Jonny2", "notabc123"))
 
 
 def testDoesUserExist():
-    testUser = user.User("yellow", "test")
+    testUser = user.User()
     print(testUser.doesUserExist("yellow"))
     print(testUser.doesUserExist("yello"))
 

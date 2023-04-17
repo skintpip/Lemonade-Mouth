@@ -12,6 +12,9 @@ userColl = db["Logins"]
 
 class User:
     # stores login for new user in database (password is encrypted)
+    def __init__(self):
+        user = ""
+
     def createNewUser(self, username, password):
         userColl.insert_one(
             {"Username": cipher.encrypt(username, 3, 1), "Password": cipher.encrypt(password, 3, 1)}).inserted_id

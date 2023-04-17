@@ -138,7 +138,7 @@ def createProject(projectId):
 # front end should prompt user to retype password)
 @app.route('/login/<string:username>/<string:password>')
 def userLogin(username, password):
-    currentUser = user.User(username, password)
+    currentUser = user.User()
     if currentUser.loginExistingUser(username, password) == -1:
         return {"username": "user does not exist"}
     elif currentUser.loginExistingUser(username, password) == 1:
