@@ -5,28 +5,28 @@ import {Link, useActionData, useSubmit} from "react-router-dom";
 import './Project.css';
 import Title from "./Title";
 
-export function Project() {
+export function Project() { //setting the initial components
     let data = useActionData();
     let projects;
     let username;
     let password;
 
-    projects = data.get('projects');
+    projects = data.get('projects'); //pulling data from database
     username = data.get('user');
     password = data.get('password');
     const submit = useSubmit();
     const [projId, setProjId] = useState("");
     const [state, setState] = useState(null);
     const [msg, setMsg] = useState("");
-    const [guitarAmps, setGuitarAmps] = useState(0);
-    const [microphones, setMicrophones] = useState(0);
+    const [guitarAmps, setGuitarAmps] = useState(0); //hardware sets
+    const [microphones, setMicrophones] = useState(0); //hardware sets
 
 
     useEffect(() => {
         if (state === null) {
             setState(10);
         }
-        else if(state === 1) {
+        else if(state === 1) {  //if someone is joining a project
             let ret = joinProject();
             ret.then((result) => {
             if (result === "error") {
@@ -35,11 +35,11 @@ export function Project() {
                 let formData = new FormData();
                 formData.append("username", username);
                 formData.append("password", password);
-                submit(formData, {method: "post", action: "/projectPage/"});
+                submit(formData, {method: "post", action: "/projectPage/"});    //sends to next page
             }
             setState(10);
             })
-        } else if (state === 2) {
+        } else if (state === 2) { //if someone is leaving a project
             let ret = leaveProject();
             ret.then((result) => {
             if (result === "error") {
@@ -52,7 +52,7 @@ export function Project() {
             }
             setState(10);
             })
-        } else if (state === 3) {
+        } else if (state === 3) { //creating a new project
             let ret = createProject();
             ret.then((result) => {
             if (result === "error") {
@@ -60,19 +60,19 @@ export function Project() {
             } else {
                 let formData = new FormData();
                 formData.append("username", username);
-                formData.append("password", password);
-                submit(formData, {method: "post", action: "/projectPage/"});
+                formData.append("password", password); //adds to database
+                submit(formData, {method: "post", action: "/projectPage/"}); //sends to next page
             }
             setState(10);
             })
         }
-        let guitarAmps = updateAvailability('GuitarAmps');
+        let guitarAmps = updateAvailability('GuitarAmps'); //to update how many are taken in/out
         let microphones = updateAvailability('Microphones');
         guitarAmps.then((result) => {
-            setGuitarAmps(result);
+            setGuitarAmps(result); //sets the value of HW
         });
         microphones.then((result) => {
-            setMicrophones(result);
+            setMicrophones(result); //sets the value of HW
         })
     }, [state]);
 
@@ -100,14 +100,14 @@ export function Project() {
     async function joinProject() {
         const url = '/join/' + username + '/' + projId;
         console.log(url);
-        return fetch(url).then((response) => response.json())
+        return fetch(url).then((response) => response.json()) //adds user to database for projects
             .then((result) => {
                 return result.result;
             });
     }
     async function createProject() {
         const url = '/create/' + projId;
-        return fetch(url).then((response) => response.json()).then((result) => {
+        return fetch(url).then((response) => response.json()).then((result) => {    //adds a new project to database
             return result.result;
         });
     }
@@ -115,7 +115,7 @@ export function Project() {
     async function leaveProject() {
         const url = '/leave/' + username + '/' + projId;
         console.log(url);
-        return fetch(url).then((response) => response.json())
+        return fetch(url).then((response) => response.json()) //removes user from database of project
             .then((result) => {
                 return result.result;
             });
@@ -123,14 +123,14 @@ export function Project() {
 
     async function updateAvailability(hwSet) {
         const url = '/available/' + hwSet;
-        return fetch(url).then((response) => response.json())
+        return fetch(url).then((response) => response.json())   //to update after checkin/checkout
             .then((result) => {
                 return result.available;
             });
     }
 
 
-    return (
+    return ( //css layout of the project page
         <div className="project">
             <Title> {Title()} </Title>
             <div>{msg}</div>
@@ -154,7 +154,7 @@ export function Project() {
 }
 
 //TODO: HANDLE NOT NUMBER INPUTS
-function HWSetHandler(props) {
+function HWSetHandler(props) { //handles the checkins/checkouts of the project
     const projId = props.projId.replace(/\s/g, '');
     const [name, setName] = useState(props.name);
     const [qnty, setQnty] = useState(null);
@@ -164,7 +164,7 @@ function HWSetHandler(props) {
     const [inputRef, setInputRef] = useState();
 
 
-    useEffect(() => {
+    useEffect(() => { //different states based on the activity
         let response;
         try {
             if (state === 0) {
@@ -188,10 +188,10 @@ function HWSetHandler(props) {
 
     async function getCheckedOut(projId) {
         let url = '/projects/checkedOut/' + projId;
-        return fetch(url).then((response) => response.json()).then((checkedOut) => checkedOut.out).then((result) => {
+        return fetch(url).then((response) => response.json()).then((checkedOut) => checkedOut.out).then((result) => { //updates in database
             //console.log(result);
             if (name === "GuitarAmps")
-                return result.at(0);
+                return result.at(0); //depending on hardware set, returns to the right hardware
             else return result.at(1);
         });
     }
@@ -201,7 +201,7 @@ function HWSetHandler(props) {
         //trying to get checked out for Project 1, also returns a promise that has the value inside it
         return fetch(url).then((response) => response.json())
             .then((checkedOut) => {
-                let result = checkedOut.checkedOut;
+                let result = checkedOut.checkedOut; //will update the hardware sets
                 if (name === "GuitarAmps")
                     return result.at(0);
                 else return result.at(1);
@@ -213,7 +213,7 @@ function HWSetHandler(props) {
         //trying to get checked out for Project 1, also returns a promise that has the value inside it
         return fetch(url).then((response) => response.json())
             .then((checkedIn) => {
-                let result = checkedIn.checkedIn;
+                let result = checkedIn.checkedIn; //will update the hardware sets
                 if (name === "GuitarAmps")
                     return result.at(0);
                 else return result.at(1);
@@ -250,7 +250,7 @@ function HWSetHandler(props) {
         </div>);
 }
 
-function ProjectMember(props) {
+function ProjectMember(props) { //shows the different hardware sets
     const name = props.name;
 
     return (
