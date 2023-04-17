@@ -11,21 +11,21 @@ import {
 import reportWebVitals from './reportWebVitals';
 import {NewProjectForm} from "./NewProjectForm";
 
-const router = createBrowserRouter([
+const router = createBrowserRouter([ //router connects all the elements together
     {
         path: "/",
-        element: <Login/>,
+        element: <Login/>,      //login page is the first page
     },
     {
         path: "projectPage/",
         element: <Project/>,
         action: async ({request}) => {
             const params = await request.formData();
-            const result = params.get("username");
+            const result = params.get("username");         //result holds the username entered
             const url = '/projects/' + result;
             let list = await fetch(url)
                 .then((response) => response.json())
-                .then((projectsList) => projectsList.projects);
+                .then((projectsList) => projectsList.projects);     //fetches projects connected to the specific username
             const map = new Map();
             map.set('user', params.get('username'));
             map.set('password', params.get('password'));
@@ -35,7 +35,7 @@ const router = createBrowserRouter([
     },
     {
         path: "register/:message?",
-        element: <Register/>,
+        element: <Register/>,       //register page
         loader: ({params}) => {
             if(params.message === undefined)
                 return "";
@@ -43,10 +43,10 @@ const router = createBrowserRouter([
         },
         action: async ({request}) => {
             const params = await request.formData();
-            const url = '/register/' + params.get("username") + '/' + params.get("password");
+            const url = '/register/' + params.get("username") + '/' + params.get("password");   //adds user and password to url
             console.log(url);
             let result;
-            return result = fetch(url).then((response) => response.json()).then((val) => {
+            return result = fetch(url).then((response) => response.json()).then((val) => { //adds user to the database
                 console.log(val.username);
                 if(val.username === "new user registered") {
                     //yay registeration sucess!!
@@ -60,7 +60,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/newProject/",
-        element: <NewProjectForm/>,
+        element: <NewProjectForm/>,     //project page
         action: async({request}) => {
             const params = await request.formData();
             return params;

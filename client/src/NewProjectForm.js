@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import {create} from "@mui/material/styles/createTransitions";
 import Button from "@mui/material/Button";
 
-export function NewProjectForm() {
+export function NewProjectForm() {  //called when creating a new project
     const [name, setName] = useState("");
     const [state, setState] = useState(null);
 
