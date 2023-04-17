@@ -31,7 +31,7 @@ def testGetEnrolledProjects():
 
 
 def testGetCheckedOutUnits():
-    ID = "Project 1"
+    ID = "Project1"
 
     testProject = project.Project()
 
