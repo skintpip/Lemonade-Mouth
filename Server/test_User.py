@@ -17,22 +17,25 @@ def main():
     client.close()
 
 
-def testCreateUser():
+def testCreateNewUser():
     testUser = user.User()
 
-    testUser.createNewUser("yellow", "test")
+    assert testUser.createNewUser("yellow", "test") == "yellow"
 
 
 def testLoginExistingUser():
     testUser = user.User()
-    print(testUser.loginExistingUser("Jonny2", "abc123"))
-    print(testUser.loginExistingUser("Jonny2", "notabc123"))
+    assert testUser.loginExistingUser("yellow", "test") == 1
+    assert testUser.loginExistingUser("yellow", "wrongpassword") == 0
+    assert testUser.loginExistingUser("fakeuser", "test") == -1
 
 
 def testDoesUserExist():
     testUser = user.User()
-    print(testUser.doesUserExist("yellow"))
-    print(testUser.doesUserExist("yello"))
+    assert testUser.doesUserExist("yellow") == True
+    assert testUser.doesUserExist("yello") == False
 
 
-main()
+def testgGetPassword():
+    testUser = user.User()
+    assert testUser.getPassword("yellow") == "test"
