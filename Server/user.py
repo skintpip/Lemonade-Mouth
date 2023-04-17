@@ -41,9 +41,3 @@ class User:
         if self.doesUserExist(username):
             return cipher.decrypt(userColl.find({"Username": cipher.encrypt(username, 3, 1)})[0].get("Password"), 3, 1)
         return None
-
-    # returns encrypted password of a given user (for testing, should not be required in execution)
-    def getEncryptedPassword(self, username):
-        if self.doesUserExist(username):
-            return userColl.find({"Username": username})[0].get("Password")
-        return None
