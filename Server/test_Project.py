@@ -3,39 +3,25 @@ import pymongo
 import certifi
 
 
-def main():
-    ca = certifi.where()
-    client = pymongo.MongoClient(
-        "mongodb+srv://jkressbach:CIrRa3yVV8dhnfKT@cluster0.v1qezrw.mongodb.net/?retryWrites=true&w=majority",
-        tlsCAFile=ca)
-    db = client["Users"]
-    projectColl = db["Projects"]
-
-    #testGetEnrolledProjects()
-    testGetCheckedOutUnits()
-
-    client.close()
-
-
-
-
-#def testCreateNewPorject():
-
-
 def testGetEnrolledProjects():
     user = "joeM58"
-
     testProject = project.Project()
 
-    print(testProject.getEnrolledProjects(user))
+    assert (testProject.getEnrolledProjects(user)) == ['Project1', 'Project2', 'Project3']
 
 
 def testGetCheckedOutUnits():
     ID = "Project1"
-
     testProject = project.Project()
 
-    print(testProject.getCheckedOutUnits(ID))
+    assert testProject.getCheckedOutUnits(ID) == [0, 0]
 
 
-main()
+def testUserInProject():
+    ID = "Project1"
+    user = "joeM58"
+    fakeUser = "fakeUser"
+    testProject = project.Project()
+
+    assert testProject.userInProject(ID, user) == True
+    assert testProject.userInProject(ID, fakeUser) == False
