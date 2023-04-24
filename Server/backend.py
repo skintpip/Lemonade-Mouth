@@ -186,13 +186,18 @@ def registerUser(username, password):
 def testPrint():
     return {"members": [5555, 5656, 5657]}
 
-
+@app.errorhandler(404)
+def not_found(e):
+    return app.send_static_file('index.html')
 # @app.errorhandler('/404')
 # def not_found(e):
 #     return
 
 # app.send_static_file('index.html')
 
-if __name__ == "__main__":
-    # app.run(debug=False)
-    app.run(host='0.0.0.0', debug=False, port=os.environ.get("PORT", 5000))
+# if __name__ == "__main__":
+#     # app.run(debug=False)
+#     app.run(host='0.0.0.0', debug=False, port=os.environ.get("PORT", 5000))
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', debug=False, port=os.environ.get('PORT', 80))
